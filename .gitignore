@@ -1,0 +1,9 @@
+.DS_Store
+.php-cs-fixer.cache
+.run/
+composer.lock
+run.php
+vendor
+.phpunit.result.cache
+.idea/
+php-cs-fixer/
