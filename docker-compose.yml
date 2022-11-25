@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  php:
+    build: docker/php
+    container_name: donationalerts_client_php_dev
+    volumes:
+      - ./:/var/www
