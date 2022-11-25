@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\API\Resources\Users;
 
 use Kosv\DonationalertsClient\API\Resources\AbstractResource;
-use Kosv\DonationalertsClient\Validator\Rules\IsTypeRule;
 use Kosv\DonationalertsClient\Validator\KeysEnum;
+use Kosv\DonationalertsClient\Validator\Rules\IsTypeRule;
 use Kosv\DonationalertsClient\Validator\Rules\RequiredFieldRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
 use Kosv\DonationalertsClient\Validator\Validator;

@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\OAuth;
 
+use InvalidArgumentException;
 use Kosv\DonationalertsClient\Contracts\OAuthClientAuthorizeRequest;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportClientError;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\OAuth\AccessDeniedException;
 use Kosv\DonationalertsClient\Exceptions\OAuth\Exception;
-use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use Kosv\DonationalertsClient\Exceptions\OAuth\InvalidAccessTokenRequestException;
 use Kosv\DonationalertsClient\Exceptions\OAuth\ServerException;
+use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use Kosv\DonationalertsClient\OAuth\Enums\GrantTypeEnum;
 use Kosv\DonationalertsClient\OAuth\Enums\ResponseErrorEnum;
-use Kosv\DonationalertsClient\Validator\Rules\IsTypeRule;
+use Kosv\DonationalertsClient\Transport\CurlClient;
 use Kosv\DonationalertsClient\Validator\KeysEnum;
+use Kosv\DonationalertsClient\Validator\Rules\IsTypeRule;
 use Kosv\DonationalertsClient\Validator\Rules\RequiredFieldRule;
 use Kosv\DonationalertsClient\Validator\Validator;
 use Kosv\DonationalertsClient\ValueObjects\AccessToken;
-use Kosv\DonationalertsClient\Transport\CurlClient;
-use InvalidArgumentException;
-use UnexpectedValueException;
 use function sprintf;
+use UnexpectedValueException;
 
 final class OAuth
 {

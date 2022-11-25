@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Transport;
 
+use Curl\Curl;
 use InvalidArgumentException;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportClientError;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Transport\Exceptions\TransportClientException;
-use Curl\Curl;
 
 final class CurlClient implements TransportClient
 {

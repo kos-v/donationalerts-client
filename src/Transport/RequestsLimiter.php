@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Transport;
 
-use function time;
 use function sleep;
+use function time;
 
 final class RequestsLimiter
 {

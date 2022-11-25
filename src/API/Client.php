@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\API;
 
+use function in_array;
 use InvalidArgumentException;
 use Kosv\DonationalertsClient\API\Enums\VersionEnum;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\API\ServerException;
-use function in_array;
 
 final class Client
 {

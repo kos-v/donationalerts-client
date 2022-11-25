@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Tests\OAuth;
 
+use InvalidArgumentException;
 use Kosv\DonationalertsClient\OAuth\AuthorizeUrlBuilder;
 use Kosv\DonationalertsClient\OAuth\Enums\GrantTypeEnum;
 use Kosv\DonationalertsClient\OAuth\Enums\ScopeEnum;
 use PHPUnit\Framework\TestCase;
-use InvalidArgumentException;
 
 final class AuthorizeUrlBuilderTest extends TestCase
 {

@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Tests\OAuth;
 
+use const JSON_THROW_ON_ERROR;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
-use Kosv\DonationalertsClient\OAuth\ClientAuthorizeRequest;
-use Kosv\DonationalertsClient\OAuth\Config;
 use Kosv\DonationalertsClient\Exceptions\OAuth\AccessDeniedException;
 use Kosv\DonationalertsClient\Exceptions\OAuth\Exception;
-use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use Kosv\DonationalertsClient\Exceptions\OAuth\InvalidAccessTokenRequestException;
 use Kosv\DonationalertsClient\Exceptions\OAuth\ServerException;
+use Kosv\DonationalertsClient\Exceptions\ValidateException;
+use Kosv\DonationalertsClient\OAuth\ClientAuthorizeRequest;
+use Kosv\DonationalertsClient\OAuth\Config;
 use Kosv\DonationalertsClient\OAuth\Enums\GrantTypeEnum;
 use Kosv\DonationalertsClient\OAuth\Enums\ScopeEnum;
 use Kosv\DonationalertsClient\OAuth\OAuth;
-use Kosv\DonationalertsClient\ValueObjects\AccessToken;
 use Kosv\DonationalertsClient\Transport\Response;
+use Kosv\DonationalertsClient\ValueObjects\AccessToken;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
-use const JSON_THROW_ON_ERROR;
 
 final class OAuthTest extends TestCase
 {

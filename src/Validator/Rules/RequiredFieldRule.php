@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Validator\Rules;
 
-use InvalidArgumentException;
 use function count;
+use InvalidArgumentException;
 use function is_array;
 
 final class RequiredFieldRule extends AbstractRule

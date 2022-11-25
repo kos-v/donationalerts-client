@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Transport;
 
-use Kosv\DonationalertsClient\Contracts\TransportResponse;
-use JsonException;
 use function json_decode;
 use const JSON_THROW_ON_ERROR;
+use JsonException;
+use Kosv\DonationalertsClient\Contracts\TransportResponse;
 
 final class Response implements TransportResponse
 {

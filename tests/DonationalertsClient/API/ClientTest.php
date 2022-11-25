@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\Tests\API;
 
 use InvalidArgumentException;
-use LogicException;
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\Config;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
@@ -13,6 +12,7 @@ use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\API\ServerException;
 use Kosv\DonationalertsClient\Transport\Response;
 use Kosv\DonationalertsClient\ValueObjects\AccessToken;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 
 final class ClientTest extends TestCase

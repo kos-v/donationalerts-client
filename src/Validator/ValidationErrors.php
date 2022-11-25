@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Validator;
 
-use OutOfBoundsException;
 use function count;
+use OutOfBoundsException;
 
 final class ValidationErrors
 {

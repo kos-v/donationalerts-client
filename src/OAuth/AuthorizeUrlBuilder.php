@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\OAuth;
 
-use InvalidArgumentException;
-use Kosv\DonationalertsClient\OAuth\Enums\GrantTypeEnum;
+use function http_build_query;
 use function implode;
 use function in_array;
-use function http_build_query;
+use InvalidArgumentException;
+use Kosv\DonationalertsClient\OAuth\Enums\GrantTypeEnum;
 
 final class AuthorizeUrlBuilder
 {

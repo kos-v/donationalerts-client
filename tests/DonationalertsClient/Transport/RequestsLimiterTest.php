@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\Tests\Transport;
 
 use Kosv\DonationalertsClient\Transport\RequestsLimiter;
-use PHPUnit\Framework\TestCase;
 use function microtime;
+use PHPUnit\Framework\TestCase;
 
 final class RequestsLimiterTest extends TestCase
 {

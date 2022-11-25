@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Tests\Transport;
 
+use JsonException;
 use Kosv\DonationalertsClient\Transport\Response;
 use PHPUnit\Framework\TestCase;
-use JsonException;
 
 final class ResponseTest extends TestCase
 {
