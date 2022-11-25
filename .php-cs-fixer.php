@@ -10,5 +10,7 @@ return $config->setRules([
     'strict_param' => true,
     'no_unused_imports' => true,
     'array_syntax' => ['syntax' => 'short'],
+    'ordered_imports' => ['sort_algorithm' => 'alpha'],
+    'static_lambda' => true,
 ])
     ->setFinder($finder);
