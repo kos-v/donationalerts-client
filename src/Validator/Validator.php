@@ -13,7 +13,7 @@ final class Validator
     private array $rules;
 
     /**
-     * @param array<Rule> $target
+     * @param array<Rule> $rules
      */
     public function __construct(array $rules)
     {

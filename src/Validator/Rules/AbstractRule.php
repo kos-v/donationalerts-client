@@ -50,5 +50,9 @@ abstract class AbstractRule implements Rule
 
         return $errorMessage;
     }
+
+    /**
+     * @param mixed $value
+     */
     abstract protected function validate($value): string;
 }

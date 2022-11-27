@@ -182,7 +182,7 @@ final class OAuth
      */
     private function validateAccessTokenPayload(array $payload, string $grantType): void
     {
-        $firsPartErr = GrantTypeEnum::IMPLICIT ? 'Request' : 'Response';
+        $firsPartErr = $grantType === GrantTypeEnum::IMPLICIT ? 'Request' : 'Response';
 
         $requiredFields = ['access_token', 'expires_in', 'token_type'];
         if ($grantType !== GrantTypeEnum::IMPLICIT) {

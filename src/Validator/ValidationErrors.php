@@ -22,20 +22,15 @@ final class ValidationErrors
 
     public function getFirstError(): RuleCheckResult
     {
-        if ($this->isEmpty()) {
-            throw new OutOfBoundsException(
-                'Object not contains errors. Use the isEmpty method before getting an error'
-            );
-        }
-
-        $firstError = null;
         foreach ($this->errors as $keyErrors) {
             if (count($keyErrors)) {
-                $firstError = $keyErrors[0];
-                break;
+                return $keyErrors[0];
             }
         }
-        return $firstError;
+
+        throw new OutOfBoundsException(
+            'Object not contains errors. Use the isEmpty method before getting an error'
+        );
     }
 
     public function isEmpty(): bool

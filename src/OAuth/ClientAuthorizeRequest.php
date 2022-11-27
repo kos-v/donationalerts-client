@@ -13,7 +13,7 @@ use const PHP_URL_QUERY;
 final class ClientAuthorizeRequest implements OAuthClientAuthorizeRequest
 {
     /**
-     * @var int|string|null[]
+     * @var array<string, mixed>
      */
     private array $queryParts = [];
 

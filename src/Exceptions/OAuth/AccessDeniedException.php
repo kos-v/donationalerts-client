@@ -10,8 +10,8 @@ use Throwable;
 final class AccessDeniedException extends Exception
 {
     public function __construct(
-        $message = "OAuth error: " . ResponseErrorEnum::ACCESS_DENIED,
-        $code = 0,
+        string $message = "OAuth error: " . ResponseErrorEnum::ACCESS_DENIED,
+        int $code = 0,
         Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);

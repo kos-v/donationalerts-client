@@ -22,6 +22,9 @@ final class IsTypeRule extends AbstractRule
         return 'The value does not match the {{expectedType}} type';
     }
 
+    /**
+     * @param mixed $value
+     */
     protected function validate($value): string
     {
         $expectedType = mb_strtolower($this->expectedType);
