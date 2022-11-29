@@ -49,7 +49,7 @@ final class ProfileInfo extends AbstractResource
         return 'data';
     }
 
-    protected function validate($payload): ValidationErrors
+    protected function validate($content): ValidationErrors
     {
         return (new Validator([
             new IsKeyableArrayRule(KeysEnum::WHOLE_TARGET),
@@ -63,6 +63,6 @@ final class ProfileInfo extends AbstractResource
             new IsTypeRule('avatar', 'string'),
             new IsTypeRule('email', 'string'),
             new IsTypeRule('socket_connection_token', 'string'),
-        ]))->validate($payload);
+        ]))->validate($content);
     }
 }
