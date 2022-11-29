@@ -33,7 +33,7 @@ abstract class AbstractRule implements Rule
 
     abstract protected function getDefaultError(): string;
 
-    final protected function makeErrorMessage(array $vars): string
+    final protected function makeErrorMessage(array $vars = []): string
     {
         $errorMessage = $this->errorMessage;
         if ($errorMessage === self::ERR_MSG_DEFAULT) {
