@@ -6,6 +6,7 @@ namespace Kosv\DonationalertsClient\API\Resources\Users;
 
 use Kosv\DonationalertsClient\API\Resources\AbstractResource;
 use Kosv\DonationalertsClient\Validator\KeysEnum;
+use Kosv\DonationalertsClient\Validator\Rules\IsKeyableArrayRule;
 use Kosv\DonationalertsClient\Validator\Rules\IsTypeRule;
 use Kosv\DonationalertsClient\Validator\Rules\RequiredFieldRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
@@ -48,9 +49,10 @@ final class ProfileInfo extends AbstractResource
         return 'data';
     }
 
-    protected function validate(array $payload): ValidationErrors
+    protected function validate($payload): ValidationErrors
     {
         return (new Validator([
+            new IsKeyableArrayRule(KeysEnum::WHOLE_TARGET),
             new RequiredFieldRule(
                 KeysEnum::WHOLE_TARGET,
                 ['id', 'code', 'name', 'avatar', 'email', 'socket_connection_token'],

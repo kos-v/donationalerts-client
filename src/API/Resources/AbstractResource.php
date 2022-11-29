@@ -33,9 +33,9 @@ abstract class AbstractResource
     abstract protected function getPayloadContentKey(): string;
 
     /**
-     * @param array<string,mixed> $payload
+     * @param mixed $payload
      */
-    abstract protected function validate(array $payload): ValidationErrors;
+    abstract protected function validate($payload): ValidationErrors;
 
     private function getResourceName(): string
     {
