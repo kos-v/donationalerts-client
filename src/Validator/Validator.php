@@ -21,9 +21,9 @@ final class Validator
     }
 
     /**
-     * @param array<string,mixed> $target
+     * @param mixed $target
      */
-    public function validate(array $target): ValidationErrors
+    public function validate($target): ValidationErrors
     {
         $errors = new ValidationErrors();
 
