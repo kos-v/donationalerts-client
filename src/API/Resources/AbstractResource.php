@@ -30,17 +30,17 @@ abstract class AbstractResource
     /**
      * @return mixed
      */
-    final protected function getValue(string $key)
+    final protected function getContentValue(string $key)
     {
         return $this->getContent()[$key];
     }
 
-    abstract protected function getPayloadContentKey(): string;
+    abstract protected function getContentKey(): string;
 
     /**
      * @param mixed $content
      */
-    abstract protected function validate($content): ValidationErrors;
+    abstract protected function validateContent($content): ValidationErrors;
 
     private function getResourceName(): string
     {
@@ -53,18 +53,18 @@ abstract class AbstractResource
      */
     private function prepare(array $payload): void
     {
-        $contentKey = $this->getPayloadContentKey();
+        $contentKey = $this->getContentKey();
         if ($contentKey && empty($payload[$contentKey])) {
             throw new ValidateException(sprintf(
                 'Payload of %s resource is not valid. Error: payload not contains required content key "%s"',
                 $this->getResourceName(),
-                $this->getPayloadContentKey()
+                $this->getContentKey()
             ));
         }
 
         $content = $contentKey ? $payload[$contentKey] : $payload;
 
-        $errors = $this->validate($content);
+        $errors = $this->validateContent($content);
         if (!$errors->isEmpty()) {
             $firstError = $errors->getFirstError();
             throw new ValidateException(sprintf(

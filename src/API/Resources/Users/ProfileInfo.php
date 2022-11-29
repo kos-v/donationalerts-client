@@ -16,40 +16,40 @@ final class ProfileInfo extends AbstractResource
 {
     public function getAvatar(): string
     {
-        return $this->getValue('avatar');
+        return $this->getContentValue('avatar');
     }
 
     public function getCode(): string
     {
-        return $this->getValue('code');
+        return $this->getContentValue('code');
     }
 
     public function getEmail(): string
     {
-        return $this->getValue('email');
+        return $this->getContentValue('email');
     }
 
     public function getId(): int
     {
-        return $this->getValue('id');
+        return $this->getContentValue('id');
     }
 
     public function getName(): string
     {
-        return $this->getValue('name');
+        return $this->getContentValue('name');
     }
 
     public function getSocketConnectionToken(): string
     {
-        return $this->getValue('socket_connection_token');
+        return $this->getContentValue('socket_connection_token');
     }
 
-    protected function getPayloadContentKey(): string
+    protected function getContentKey(): string
     {
         return 'data';
     }
 
-    protected function validate($content): ValidationErrors
+    protected function validateContent($content): ValidationErrors
     {
         return (new Validator([
             new IsKeyableArrayRule(KeysEnum::WHOLE_TARGET),
