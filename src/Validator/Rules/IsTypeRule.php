@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\Validator\Rules;
 
 use function gettype;
+use function is_numeric;
 use function mb_strtolower;
 
 final class IsTypeRule extends AbstractRule
 {
+    private const NUMERIC_TYPE = 'numeric';
+
     private string $expectedType;
 
     public function __construct(string $key, string $expectedType, ?string $errMsg = self::ERR_MSG_DEFAULT)
@@ -28,8 +31,8 @@ final class IsTypeRule extends AbstractRule
     protected function validate($value): string
     {
         $expectedType = mb_strtolower($this->expectedType);
-        $valueType = mb_strtolower(gettype($value));
-        return $valueType !== $expectedType
+        return ($expectedType === self::NUMERIC_TYPE && !is_numeric($value)) ||
+                (mb_strtolower(gettype($value)) !== $expectedType)
             ? $this->makeErrorMessage(['expectedType' => $expectedType])
             : '';
     }
