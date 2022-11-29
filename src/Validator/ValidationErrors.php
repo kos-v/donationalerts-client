@@ -35,6 +35,11 @@ final class ValidationErrors
 
     public function isEmpty(): bool
     {
-        return count($this->errors) === 0;
+        foreach ($this->errors as $keyErrors) {
+            if (count($keyErrors)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
