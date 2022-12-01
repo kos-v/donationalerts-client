@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Actions\Users;
+namespace Kosv\DonationalertsClient\API\Actions\V1\Users;
 
 use Kosv\DonationalertsClient\API\Actions\AbstractAction;
 use Kosv\DonationalertsClient\API\Client;
-use Kosv\DonationalertsClient\API\Resources\Users\ProfileInfo;
+use Kosv\DonationalertsClient\API\Resources\V1\Users\ProfileInfo;
 
 final class Users extends AbstractAction
 {
@@ -19,6 +19,6 @@ final class Users extends AbstractAction
 
     public function getProfileInfo(): ProfileInfo
     {
-        return new ProfileInfo($this->client->get('/user/oauth')->toArray());
+        return new ProfileInfo($this->client->get('/v1/user/oauth')->toArray());
     }
 }

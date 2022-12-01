@@ -6,7 +6,6 @@ namespace Kosv\DonationalertsClient\API;
 
 use function in_array;
 use InvalidArgumentException;
-use Kosv\DonationalertsClient\API\Enums\VersionEnum;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\API\ServerException;
@@ -33,22 +32,21 @@ final class Client
         $this->transport = $transport;
     }
 
-    public function get(string $endpoint, array $payload = [], string $ver = VersionEnum::V1): Response
+    public function get(string $endpoint, array $payload = []): Response
     {
-        return $this->request(self::METHOD_GET, $ver, $endpoint, $payload);
+        return $this->request(self::METHOD_GET, $endpoint, $payload);
     }
 
-    public function post(string $endpoint, array $payload = [], string $ver = VersionEnum::V1): Response
+    public function post(string $endpoint, array $payload = []): Response
     {
-        return $this->request(self::METHOD_POST, $ver, $endpoint, $payload);
+        return $this->request(self::METHOD_POST, $endpoint, $payload);
     }
 
-    private function request(string $method, string $ver, string $endpoint, array $payload = []): Response
+    private function request(string $method, string $endpoint, array $payload = []): Response
     {
         $this->checkHttpMethod($method);
-        $this->checkApiVersion($ver);
 
-        $url = $this->buildUrl($ver, $endpoint);
+        $url = $this->buildUrl($endpoint);
         $headers = [
             'Authorization' => 'Bearer ' . $this->config->getAccessToken(),
         ];
@@ -64,16 +62,9 @@ final class Client
         return new Response($response);
     }
 
-    private function buildUrl(string $apiVer, string $endpoint): string
+    private function buildUrl(string $endpoint): string
     {
-        return self::API_URL . '/' . $apiVer . $endpoint;
-    }
-
-    private function checkApiVersion(string $ver): void
-    {
-        if ($ver !== VersionEnum::V1) {
-            throw new InvalidArgumentException("API version {$ver} is not supported");
-        }
+        return self::API_URL . $endpoint;
     }
 
     private function checkHttpMethod(string $method): void

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Tests\API;
 
-use InvalidArgumentException;
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\Config;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
@@ -42,7 +41,7 @@ final class ClientTest extends TestCase
             }
         });
 
-        $response =  $client->get('/test/foo', ['bar' => 'val1', 'baz' => 100]);
+        $response =  $client->get('/v1/test/foo', ['bar' => 'val1', 'baz' => 100]);
         $this->assertEquals(['result' => true], $response->toArray());
     }
 
@@ -71,20 +70,8 @@ final class ClientTest extends TestCase
             }
         });
 
-        $response =  $client->post('/test/foo', ['bar' => 'val1', 'baz' => 100]);
+        $response =  $client->post('/v1/test/foo', ['bar' => 'val1', 'baz' => 100]);
         $this->assertEquals(['result' => true], $response->toArray());
-    }
-
-    public function testRequestWhenIncorrectApiVersion(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('API version incorrect_version is not supported');
-
-        $transport = $this->createMock(TransportClient::class);
-        $transport->method('get')->willReturn(new Response('{"result": true}', 200));
-
-        $client = new Client($this->makeClientConfig(), $transport);
-        $client->get('/test/foo', [], 'incorrect_version');
     }
 
     public function testRequestWhenResponseNot200xHttpCode(): void
