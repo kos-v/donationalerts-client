@@ -1,4 +1,5 @@
 # DONATIONALERTS API Client
+**Status:** In development of the first stable version
 
 ### Table of Contents
 - [OAuth 2.0](#oauth-2.0)
