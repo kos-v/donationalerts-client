@@ -13,14 +13,12 @@ final class ProfileInfoTest extends TestCase
     public function testGetValues(): void
     {
         $resource = new ProfileInfo([
-            'data' => [
-                'id' => 3,
-                'code' => 'tris_the_jam_master',
-                'name' => 'Tris_the_Jam_Master',
-                'avatar' => 'https://test.local/foo/300x300.jpeg',
-                'email' => 'test@host.local',
-                'socket_connection_token' => 'yeJ0eXTY...'
-            ]
+            'id' => 3,
+            'code' => 'tris_the_jam_master',
+            'name' => 'Tris_the_Jam_Master',
+            'avatar' => 'https://test.local/foo/300x300.jpeg',
+            'email' => 'test@host.local',
+            'socket_connection_token' => 'yeJ0eXTY...'
         ]);
 
         $this->assertEquals(3, $resource->getId());
@@ -31,51 +29,47 @@ final class ProfileInfoTest extends TestCase
         $this->assertEquals('yeJ0eXTY...', $resource->getSocketConnectionToken());
     }
 
-    public function testUnexpectedPayloadFormat(): void
+    public function testUnexpectedContentFormat(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Payload of ProfileInfo resource is not valid. Error: payload not contains required content key "data"');
+        $this->expectExceptionMessage('Content of ProfileInfo resource is not valid. Error: "[*]":"The value must be keyable array type"');
 
         new ProfileInfo([
-            'foo' => [
+            [
                 'id' => 3,
                 'code' => 'tris_the_jam_master',
                 'name' => 'Tris_the_Jam_Master',
                 'avatar' => 'https://test.local/foo/300x300.jpeg',
                 'email' => 'test@host.local',
                 'socket_connection_token' => 'yeJ0eXTY...'
-            ]
+            ],
         ]);
     }
 
     public function testWithoutRequiredFields(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Payload of ProfileInfo resource is not valid. Error: "[*]":"Required fields id, name, email are not set"');
+        $this->expectExceptionMessage('Content of ProfileInfo resource is not valid. Error: "[*]":"Required fields [id, name, email] are not set"');
 
         new ProfileInfo([
-            'data' => [
-                'code' => 'tris_the_jam_master',
-                'avatar' => 'https://test.local/foo/300x300.jpeg',
-                'socket_connection_token' => 'yeJ0eXTY...'
-            ]
+            'code' => 'tris_the_jam_master',
+            'avatar' => 'https://test.local/foo/300x300.jpeg',
+            'socket_connection_token' => 'yeJ0eXTY...'
         ]);
     }
 
     public function testWithUnexpectedFieldType(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Payload of ProfileInfo resource is not valid. Error: "id":"The value does not match the integer type"');
+        $this->expectExceptionMessage('Content of ProfileInfo resource is not valid. Error: "id":"The value does not match the integer type"');
 
         new ProfileInfo([
-            'data' => [
-                'id' => '3',
-                'code' => 'tris_the_jam_master',
-                'name' => 'Tris_the_Jam_Master',
-                'avatar' => 'https://test.local/foo/300x300.jpeg',
-                'email' => 'test@host.local',
-                'socket_connection_token' => 'yeJ0eXTY...'
-            ]
+            'id' => '3',
+            'code' => 'tris_the_jam_master',
+            'name' => 'Tris_the_Jam_Master',
+            'avatar' => 'https://test.local/foo/300x300.jpeg',
+            'email' => 'test@host.local',
+            'socket_connection_token' => 'yeJ0eXTY...'
         ]);
     }
 }

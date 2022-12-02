@@ -15,27 +15,21 @@ abstract class AbstractResource
     private array $content;
 
     /**
-     * @param array<string,mixed> $payload
+     * @param array<mixed> $content
      */
-    public function __construct(array $payload)
+    public function __construct(array $content)
     {
-        $this->prepare($payload);
-    }
-
-    final protected function getContent(): array
-    {
-        return $this->content;
+        $this->prepare($content);
     }
 
     /**
+     * @param int|string $key
      * @return mixed
      */
-    final protected function getContentValue(string $key)
+    final protected function getContentValue($key)
     {
-        return $this->getContent()[$key];
+        return $this->content[$key];
     }
-
-    abstract protected function getContentKey(): string;
 
     /**
      * @param mixed $content
@@ -48,27 +42,16 @@ abstract class AbstractResource
     }
 
     /**
-     * @param array<string,mixed> $payload
+     * @param array<mixed> $content
      * @throws ValidateException
      */
-    private function prepare(array $payload): void
+    private function prepare(array $content): void
     {
-        $contentKey = $this->getContentKey();
-        if ($contentKey && empty($payload[$contentKey])) {
-            throw new ValidateException(sprintf(
-                'Payload of %s resource is not valid. Error: payload not contains required content key "%s"',
-                $this->getResourceName(),
-                $this->getContentKey()
-            ));
-        }
-
-        $content = $contentKey ? $payload[$contentKey] : $payload;
-
         $errors = $this->validateContent($content);
         if (!$errors->isEmpty()) {
             $firstError = $errors->getFirstError();
             throw new ValidateException(sprintf(
-                'Payload of %s resource is not valid. Error: "%s":"%s"',
+                'Content of %s resource is not valid. Error: "%s":"%s"',
                 $this->getResourceName(),
                 $firstError->getKey(),
                 $firstError->getError()

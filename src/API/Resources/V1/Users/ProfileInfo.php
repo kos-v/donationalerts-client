@@ -44,11 +44,6 @@ final class ProfileInfo extends AbstractResource
         return $this->getContentValue('socket_connection_token');
     }
 
-    protected function getContentKey(): string
-    {
-        return 'data';
-    }
-
     protected function validateContent($content): ValidationErrors
     {
         return (new Validator([
