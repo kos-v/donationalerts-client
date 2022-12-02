@@ -24,8 +24,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Kosv\\DonationalertsClient\\": "src/",
-      "Kosv\\DonationalertsClient\\Tests\\": "src/DonationalertsClient/"
+      "Kosv\\DonationalertsClient\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kosv\\DonationalertsClient\\Tests\\": "tests/DonationalertsClient/"
     }
   }
 }
