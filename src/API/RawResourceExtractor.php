@@ -28,6 +28,9 @@ final class RawResourceExtractor
         $this->payload = $payload;
     }
 
+    /**
+     * @throws ValidateException
+     */
     public function extractContent(string $key = self::DEFAULT_CONTENT_KEY, bool $keyable = true): array
     {
         return $this->extract($key, [
@@ -36,6 +39,9 @@ final class RawResourceExtractor
         ]);
     }
 
+    /**
+     * @throws ValidateException
+     */
     public function extractMetadata(string $key = self::DEFAULT_METADATA_KEY): array
     {
         return $this->extract($key, [
@@ -44,6 +50,9 @@ final class RawResourceExtractor
         ]);
     }
 
+    /**
+     * @throws ValidateException
+     */
     private function extract(string $key, array $rules): array
     {
         $errors = (new Validator($rules))->validate($this->payload);
