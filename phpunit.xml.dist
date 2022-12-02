@@ -7,7 +7,7 @@
   </coverage>
   <testsuites>
     <testsuite name="Donationalerts Client Unit Test Suite">
-      <directory>tests/DonationalertsClient</directory>
+      <directory>tests</directory>
     </testsuite>
   </testsuites>
 </phpunit>
