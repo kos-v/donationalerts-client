@@ -21,7 +21,7 @@ final class RequiredFieldRule extends AbstractRule
 
     protected function getDefaultError(): string
     {
-        return 'Required fields {{notFoundFields}} are not set';
+        return 'Required fields [{{notFoundFields}}] are not set';
     }
 
     protected function validate($value): string
