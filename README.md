@@ -1,7 +1,7 @@
 # DONATIONALERTS API Client
 **Status:** In development of the first stable version
 
-### Table of Contents
+## Table of Contents
 - [OAuth 2.0](#oauth-2.0)
     - [Authorization](#authorization)
     - [Request access token by authorize code grant](#request-access-token-by-authorize-code-grant)
@@ -11,7 +11,7 @@
       - [User Profile Information](#user-profile-information)
 
     
-### OAuth 2.0
+## OAuth 2.0
 
 #### Authorization
 1. Create an oauth object with your configuration parameters
@@ -90,7 +90,7 @@ $newScopes = [
 $newAccessToken = $oauth->refreshAccessToken($oldAccessToken, $newScopes);
 ```
 
-### API
+## API
 To access the API, create an object of the `Kosv\DonationalertsClient\API\Api` class:
 ```php
 use Kosv\DonationalertsClient\API\Api;
