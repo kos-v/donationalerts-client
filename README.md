@@ -6,6 +6,9 @@
     - [Authorization](#authorization)
     - [Request access token by authorize code grant](#request-access-token-by-authorize-code-grant)
     - [Refresh Access Token](#refresh-access-token)
+- [API](#api)  
+    - [Users](#users)
+      - [User Profile Information](#user-profile-information)
 
     
 ### OAuth 2.0
@@ -85,4 +88,33 @@ $newScopes = [
     ScopeEnum::USER_SHOW,
 ];
 $newAccessToken = $oauth->refreshAccessToken($oldAccessToken, $newScopes);
+```
+
+### API
+To access the API, create an object of the `Kosv\DonationalertsClient\API\Api` class:
+```php
+use Kosv\DonationalertsClient\API\Api;
+use Kosv\DonationalertsClient\API\Config as ApiConfig;
+use Kosv\DonationalertsClient\ValueObjects\AccessToken;
+
+/** @var AccessToken $accessToken */
+
+$apiConfig = new ApiConfig($accessToken);
+$api = new Api($apiConfig);
+```
+
+
+#### Users
+##### User Profile Information
+Action: `GET https://www.donationalerts.com/api/v1/user/oauth`  
+Code:
+```php
+/** @var Kosv\DonationalertsClient\API\Api $api */
+$profileInfo = $api->v1()->users()->getProfileInfo();
+$profileInfo->getAvatar();
+$profileInfo->getCode();
+$profileInfo->getEmail();
+$profileInfo->getId();
+$profileInfo->getName();
+$profileInfo->getSocketConnectionToken();
 ```
