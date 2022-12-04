@@ -9,6 +9,7 @@
 - [API](#api)  
     - [Users](#users)
       - [User Profile Information](#user-profile-information)
+- [Other documentation resources](#other-documentation-resources)    
 
     
 ## OAuth 2.0
@@ -118,3 +119,6 @@ $profileInfo->getId();
 $profileInfo->getName();
 $profileInfo->getSocketConnectionToken();
 ```
+
+## Other documentation resources
+[Official API documentation](https://www.donationalerts.com/apidoc)
