@@ -14,7 +14,7 @@ final class IsListableArrayRuleTest extends TestCase
      */
     public function testCheck($value, string $expectedMsg): void
     {
-        $rule = new IsListableArrayRule('test_key', $expectedMsg);
+        $rule = new IsListableArrayRule('test_key', false, $expectedMsg);
         $this->assertEquals($rule->check($value), $expectedMsg);
     }
 
@@ -33,7 +33,7 @@ final class IsListableArrayRuleTest extends TestCase
 
     public function testCheckWithoutDefaultErrMessage(): void
     {
-        $rule = new IsListableArrayRule('test_key', 'Error');
+        $rule = new IsListableArrayRule('test_key', false, 'Error');
         $this->assertEquals($rule->check(null), 'Error');
     }
 }

@@ -193,6 +193,7 @@ final class OAuth
             new RequiredFieldRule(
                 KeysEnum::WHOLE_TARGET,
                 $requiredFields,
+                false,
                 sprintf(
                     '%s not contains required fields. No fields: {{notFoundFields}}',
                     $firsPartErr
@@ -201,6 +202,7 @@ final class OAuth
             new IsTypeRule(
                 'expires_in',
                 'integer',
+                false,
                 sprintf(
                     '%s contains not valid data type of expires_in field. Must be an integer',
                     $firsPartErr

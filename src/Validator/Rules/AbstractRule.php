@@ -16,15 +16,21 @@ abstract class AbstractRule implements Rule
 
     private ?string $errorMessage;
     private string $key;
+    private bool $nullable;
 
-    public function __construct(string $key, ?string $errMsg = self::ERR_MSG_DEFAULT)
+    public function __construct(string $key, bool $nullable = false, ?string $errMsg = self::ERR_MSG_DEFAULT)
     {
         $this->key = $key;
+        $this->nullable = $nullable;
         $this->errorMessage = $errMsg;
     }
 
     public function check($value): RuleCheckResult
     {
+        if ($this->nullable && $value === null) {
+            return new RuleCheckResult($this->key, true, '');
+        }
+
         $error = $this->validate($value);
         return new RuleCheckResult($this->key, $error === '', $error);
     }

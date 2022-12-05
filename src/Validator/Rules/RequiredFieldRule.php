@@ -13,10 +13,14 @@ final class RequiredFieldRule extends AbstractRule
     /** @var array<string> */
     private array $requiredFields;
 
-    public function __construct(string $key, array $requiredFields, ?string $errMsg = self::ERR_MSG_DEFAULT)
-    {
+    public function __construct(
+        string $key,
+        array $requiredFields,
+        bool $nullable = false,
+        ?string $errMsg = self::ERR_MSG_DEFAULT
+    ) {
         $this->requiredFields = $requiredFields;
-        parent::__construct($key, $errMsg);
+        parent::__construct($key, $nullable, $errMsg);
     }
 
     protected function getDefaultError(): string

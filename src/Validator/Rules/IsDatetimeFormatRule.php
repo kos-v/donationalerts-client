@@ -9,7 +9,6 @@ use DateTime;
 final class IsDatetimeFormatRule extends AbstractRule
 {
     private string $format;
-    private bool $nullable;
 
     public function __construct(
         string $key,
@@ -18,8 +17,7 @@ final class IsDatetimeFormatRule extends AbstractRule
         ?string $errMsg = self::ERR_MSG_DEFAULT
     ) {
         $this->format = $format;
-        $this->nullable = $nullable;
-        parent::__construct($key, $errMsg);
+        parent::__construct($key, $nullable, $errMsg);
     }
 
     protected function getDefaultError(): string
@@ -29,10 +27,6 @@ final class IsDatetimeFormatRule extends AbstractRule
 
     protected function validate($value): string
     {
-        if ($this->nullable && $value === null) {
-            return '';
-        }
-
         return !DateTime::createFromFormat($this->format, $value) instanceof DateTime
             ? $this->makeErrorMessage(['format' => $this->format])
             : '';

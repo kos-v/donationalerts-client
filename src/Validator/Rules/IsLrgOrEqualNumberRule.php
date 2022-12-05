@@ -8,10 +8,14 @@ final class IsLrgOrEqualNumberRule extends AbstractRule
 {
     private float $min;
 
-    public function __construct(string $key, float $min, ?string $errMsg = self::ERR_MSG_DEFAULT)
-    {
+    public function __construct(
+        string $key,
+        float $min,
+        bool $nullable = false,
+        ?string $errMsg = self::ERR_MSG_DEFAULT
+    ) {
         $this->min = $min;
-        parent::__construct($key, $errMsg);
+        parent::__construct($key, $nullable, $errMsg);
     }
 
     protected function getDefaultError(): string
