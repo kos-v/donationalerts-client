@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Validator\Rules;
 
+use function implode;
+use function is_array;
 use Kosv\DonationalertsClient\Validator\Rule;
 use Kosv\DonationalertsClient\Validator\RuleCheckResult;
+use function mb_ereg_replace;
 
 abstract class AbstractRule implements Rule
 {
