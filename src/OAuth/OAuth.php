@@ -194,19 +194,13 @@ final class OAuth
                 KeysEnum::WHOLE_TARGET,
                 $requiredFields,
                 false,
-                sprintf(
-                    '%s not contains required fields. No fields: {{notFoundFields}}',
-                    $firsPartErr
-                )
+                "{$firsPartErr} not contains required fields. No fields: {{notFoundFields}}"
             ),
             new IsTypeRule(
                 'expires_in',
                 'integer',
                 false,
-                sprintf(
-                    '%s contains not valid data type of expires_in field. Must be an integer',
-                    $firsPartErr
-                )
+                "{$firsPartErr} contains not valid data type of expires_in field. Must be an integer"
             ),
         ]))->validate($payload);
 
