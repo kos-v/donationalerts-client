@@ -14,7 +14,7 @@ final class IsListableArrayRuleTest extends TestCase
      */
     public function testCheck($value, string $expectedMsg): void
     {
-        $rule = new IsListableArrayRule('test_key', false, $expectedMsg);
+        $rule = new IsListableArrayRule('test_key');
         $this->assertEquals($rule->check($value), $expectedMsg);
     }
 
