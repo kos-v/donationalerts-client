@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\Validator\Rules;
 
 use DateTime;
+use function is_string;
 
 final class IsDatetimeFormatRule extends AbstractRule
 {
@@ -27,7 +28,7 @@ final class IsDatetimeFormatRule extends AbstractRule
 
     protected function validate($value): string
     {
-        return !DateTime::createFromFormat($this->format, $value) instanceof DateTime
+        return !is_string($value) || !DateTime::createFromFormat($this->format, $value) instanceof DateTime
             ? $this->makeErrorMessage(['format' => $this->format])
             : '';
     }
