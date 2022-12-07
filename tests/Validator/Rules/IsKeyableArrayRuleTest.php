@@ -15,7 +15,7 @@ final class IsKeyableArrayRuleTest extends TestCase
     public function testCheck($value, string $expectedMsg): void
     {
         $rule = new IsKeyableArrayRule('test_key');
-        $this->assertEquals($expectedMsg, $rule->check($value),);
+        $this->assertEquals($expectedMsg, $rule->check($value));
     }
 
     public function checkDataProvider(): array
