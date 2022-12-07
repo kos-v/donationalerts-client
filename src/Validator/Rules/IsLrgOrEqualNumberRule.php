@@ -26,7 +26,7 @@ final class IsLrgOrEqualNumberRule extends AbstractRule
     protected function validate($value): string
     {
         return $value < $this->min
-            ? $this->makeErrorMessage(['min' => $this->min])
+            ? $this->makeErrorMessage(['min' => (string)$this->min])
             : '';
     }
 }
