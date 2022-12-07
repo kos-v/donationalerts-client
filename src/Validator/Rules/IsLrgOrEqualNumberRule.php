@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Validator\Rules;
 
+use InvalidArgumentException;
+use function is_numeric;
+
 final class IsLrgOrEqualNumberRule extends AbstractRule
 {
     private float $min;
@@ -25,6 +28,10 @@ final class IsLrgOrEqualNumberRule extends AbstractRule
 
     protected function validate($value): string
     {
+        if (!is_numeric($value)) {
+            throw new InvalidArgumentException('The $value argument must be a numeric type');
+        }
+
         return $value < $this->min
             ? $this->makeErrorMessage(['min' => (string)$this->min])
             : '';
