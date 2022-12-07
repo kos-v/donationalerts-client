@@ -36,4 +36,10 @@ final class IsListableArrayRuleTest extends TestCase
         $rule = new IsListableArrayRule('test_key', false, 'Error');
         $this->assertEquals('Error', $rule->check(null));
     }
+
+    public function testCheckWhenNullableTrue(): void
+    {
+        $rule = new IsListableArrayRule('test_key', true);
+        $this->assertEquals('', $rule->check(null));
+    }
 }

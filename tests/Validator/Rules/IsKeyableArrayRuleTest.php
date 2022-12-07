@@ -36,4 +36,10 @@ final class IsKeyableArrayRuleTest extends TestCase
         $rule = new IsKeyableArrayRule('test_key', false, 'Error');
         $this->assertEquals('Error', $rule->check(null));
     }
+
+    public function testCheckWhenNullableTrue(): void
+    {
+        $rule = new IsKeyableArrayRule('test_key', true);
+        $this->assertEquals('', $rule->check(null));
+    }
 }
