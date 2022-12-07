@@ -42,6 +42,9 @@ abstract class AbstractRule implements Rule
 
     abstract protected function getDefaultError(): string;
 
+    /**
+     * @param array<string,string|array<string>> $vars
+     */
     final protected function makeErrorMessage(array $vars = []): string
     {
         $errorMessage = $this->errorMessage;
