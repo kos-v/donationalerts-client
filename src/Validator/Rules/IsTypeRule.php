@@ -35,9 +35,9 @@ final class IsTypeRule extends AbstractRule
     protected function validate($value): string
     {
         $expectedType = mb_strtolower($this->expectedType);
-        return ($expectedType === self::NUMERIC_TYPE && !is_numeric($value)) ||
-        (mb_strtolower(gettype($value)) !== $expectedType)
-            ? $this->makeErrorMessage(['expectedType' => $expectedType])
-            : '';
+        return ($expectedType === self::NUMERIC_TYPE && is_numeric($value)) ||
+        (mb_strtolower(gettype($value)) === $expectedType)
+            ? ''
+            : $this->makeErrorMessage(['expectedType' => $expectedType]);
     }
 }
