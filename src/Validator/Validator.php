@@ -40,7 +40,7 @@ final class Validator
                 $ruleResult = $rule->check($target[$rule->getKey()]);
             }
             if (!$ruleResult->isOk()) {
-                $errors->addError($rule->getKey(), $ruleResult);
+                $errors->addError($ruleResult);
                 break;
             }
         }
