@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Actions\V1\Users;
+namespace Kosv\DonationalertsClient\API\Actions\V1\User;
 
 use Kosv\DonationalertsClient\API\Actions\AbstractAction;
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\RawResourceExtractor;
-use Kosv\DonationalertsClient\API\Resources\V1\Users\ProfileInfo;
+use Kosv\DonationalertsClient\API\Resources\V1\User\ProfileInfo;
 
-final class Users extends AbstractAction
+final class User extends AbstractAction
 {
     private Client $client;
 

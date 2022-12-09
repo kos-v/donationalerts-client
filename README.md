@@ -111,7 +111,7 @@ Action: `GET https://www.donationalerts.com/api/v1/user/oauth`
 Code:
 ```php
 /** @var Kosv\DonationalertsClient\API\Api $api */
-$profileInfo = $api->v1()->users()->getProfileInfo();
+$profileInfo = $api->v1()->user()->getProfileInfo();
 $profileInfo->getAvatar();
 $profileInfo->getCode();
 $profileInfo->getEmail();

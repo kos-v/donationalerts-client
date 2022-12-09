@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\API\Actions\V1;
 
-use Kosv\DonationalertsClient\API\Actions\V1\Users\Users;
+use Kosv\DonationalertsClient\API\Actions\V1\User\User;
 use Kosv\DonationalertsClient\API\Client;
 
 final class V1
@@ -16,8 +16,8 @@ final class V1
         $this->client = $client;
     }
 
-    public function users(): Users
+    public function user(): User
     {
-        return new Users($this->client);
+        return new User($this->client);
     }
 }

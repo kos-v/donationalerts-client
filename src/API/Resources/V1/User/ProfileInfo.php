@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Resources\V1\Users;
+namespace Kosv\DonationalertsClient\API\Resources\V1\User;
 
 use Kosv\DonationalertsClient\API\Resources\AbstractResource;
 use Kosv\DonationalertsClient\Validator\KeysEnum;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DonationalertsClient\Tests\API\Resources\V1\Users;
+namespace DonationalertsClient\Tests\API\Resources\V1\User;
 
-use Kosv\DonationalertsClient\API\Resources\V1\Users\ProfileInfo;
+use Kosv\DonationalertsClient\API\Resources\V1\User\ProfileInfo;
 use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use PHPUnit\Framework\TestCase;
 
