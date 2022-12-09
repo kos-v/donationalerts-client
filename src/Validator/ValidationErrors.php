@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\Validator;
 
 use function count;
+use InvalidArgumentException;
 use OutOfBoundsException;
 
 final class ValidationErrors
@@ -12,12 +13,16 @@ final class ValidationErrors
     /** @var array<string,array<RuleCheckResult>> */
     private array $errors = [];
 
-    public function addError(string $key, RuleCheckResult $error): void
+    public function addError(string $key, RuleCheckResult $checkResult): void
     {
+        if ($checkResult->isOk()) {
+            throw new InvalidArgumentException('The result of checking a rule must contain an error');
+        }
+
         if (!isset($this->errors[$key])) {
             $this->errors[$key] = [];
         }
-        $this->errors[$key][] = $error;
+        $this->errors[$key][] = $checkResult;
     }
 
     public function getFirstError(): RuleCheckResult
