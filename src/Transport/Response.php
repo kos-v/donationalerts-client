@@ -11,9 +11,13 @@ use Kosv\DonationalertsClient\Contracts\TransportResponse;
 
 final class Response implements TransportResponse
 {
-    /** @var array|null */
+    /** @var array<mixed>|null */
     private ?array $jsonResponse = null;
+
+    /** @psalm-readonly */
     private string $rawResponse;
+
+    /** @psalm-readonly */
     private int $statusCode;
 
     public function __construct(string $response, int $statusCode)
@@ -48,7 +52,7 @@ final class Response implements TransportResponse
     public function toArray(): array
     {
         $this->decodeToJson();
-        /** @var array $this->jsonResponse */
+        /** @var array<mixed> $this->jsonResponse */
         return $this->jsonResponse;
     }
 

@@ -14,8 +14,13 @@ abstract class AbstractRule implements Rule
 {
     public const ERR_MSG_DEFAULT = null;
 
+    /** @psalm-readonly */
     private ?string $errorMessage;
+
+    /** @psalm-readonly */
     private string $key;
+
+    /** @psalm-readonly */
     private bool $nullable;
 
     public function __construct(string $key, bool $nullable = false, ?string $errMsg = self::ERR_MSG_DEFAULT)

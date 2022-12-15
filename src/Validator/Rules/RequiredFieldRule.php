@@ -10,7 +10,10 @@ use function is_array;
 
 final class RequiredFieldRule extends AbstractRule
 {
-    /** @var array<string> */
+    /**
+     * @var array<string>
+     * @psalm-readonly
+     */
     private array $requiredFields;
 
     public function __construct(

@@ -9,6 +9,7 @@ use function is_numeric;
 
 final class IsLrgOrEqualNumberRule extends AbstractRule
 {
+    /** @psalm-readonly */
     private float $min;
 
     public function __construct(

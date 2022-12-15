@@ -10,6 +10,8 @@ use function time;
 final class RequestsLimiter
 {
     private ?int $lastRequestTime = null;
+
+    /** @psalm-readonly */
     private int $timeout;
 
     public function __construct(int $timeout)

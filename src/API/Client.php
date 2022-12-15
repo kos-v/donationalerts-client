@@ -24,14 +24,22 @@ final class Client
      */
     private string $apiVersion;
 
+    /** @psalm-readonly */
     private Config $config;
 
-    /** @var array<HttpStatusEnum::*> */
+    /**
+     * @var array<HttpStatusEnum::*>
+     * @psalm-readonly
+     */
     private array $successResponseCodes = [HttpStatusEnum::OK, HttpStatusEnum::CREATED];
 
-    /** @var array<string> */
+    /**
+     * @var array<string>
+     * @psalm-readonly
+     */
     private array $supportedMethods = [self::METHOD_GET, self::METHOD_POST];
 
+    /** @psalm-readonly */
     private TransportClient $transport;
 
     /**

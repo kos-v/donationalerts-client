@@ -9,6 +9,7 @@ use function implode;
 use function in_array;
 use InvalidArgumentException;
 use Kosv\DonationalertsClient\OAuth\Enums\GrantTypeEnum;
+use Kosv\DonationalertsClient\OAuth\Enums\ScopeEnum;
 
 final class AuthorizeUrlBuilder
 {
@@ -16,13 +17,24 @@ final class AuthorizeUrlBuilder
     private const RESPONSE_TYPE_CODE = 'code';
     private const RESPONSE_TYPE_TOKEN = 'token';
 
+    /** @psalm-readonly */
     private int $clientId;
+
+    /** @psalm-readonly */
     private string $grantType;
+
+    /** @psalm-readonly */
     private string $redirectUri;
+
+    /**
+     * @var array<ScopeEnum::*>
+     * @psalm-readonly
+     */
     private array $scopes;
 
     /**
-     * @param string[] $scopes
+     * @param GrantTypeEnum::AUTHORIZATION_CODE | GrantTypeEnum::IMPLICIT $grantType
+     * @param array<ScopeEnum::*> $scopes
      */
     public function __construct(string $grantType, int $clientId, string $redirectUri, array $scopes)
     {

@@ -9,6 +9,7 @@ use Kosv\DonationalertsClient\API\Client;
 
 final class V1
 {
+    /** @psalm-readonly */
     private Client $client;
 
     public function __construct(Client $client)

@@ -8,6 +8,7 @@ use Kosv\DonationalertsClient\Contracts\TransportResponse;
 
 final class Response
 {
+    /** @psalm-readonly */
     private TransportResponse $response;
 
     public function __construct(TransportResponse $response)

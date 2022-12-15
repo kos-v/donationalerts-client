@@ -10,9 +10,6 @@ final class Config
     public string $clientSecret;
     public string $redirectUri;
 
-    /**
-     * @param string[] $scopes
-     */
     public function __construct(int $clientId, string $clientSecret, string $redirectUri)
     {
         $this->clientId = $clientId;

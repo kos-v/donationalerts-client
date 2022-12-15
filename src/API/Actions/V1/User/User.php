@@ -11,6 +11,7 @@ use Kosv\DonationalertsClient\API\Resources\V1\User\ProfileInfo;
 
 final class User extends AbstractAction
 {
+    /** @psalm-readonly */
     private Client $client;
 
     public function __construct(Client $client)

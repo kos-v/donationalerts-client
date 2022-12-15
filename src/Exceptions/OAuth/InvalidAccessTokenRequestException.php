@@ -6,6 +6,7 @@ namespace Kosv\DonationalertsClient\Exceptions\OAuth;
 
 final class InvalidAccessTokenRequestException extends ServerException
 {
+    /** @psalm-readonly */
     private array $response;
 
     public function __construct(array $response, int $statusCode)

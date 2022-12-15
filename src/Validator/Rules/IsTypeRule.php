@@ -12,8 +12,12 @@ final class IsTypeRule extends AbstractRule
 {
     private const NUMERIC_TYPE = 'numeric';
 
+    /** @psalm-readonly */
     private string $expectedType;
 
+    /**
+     * @param 'array'|'boolean'|'double'|'integer'|'null'|'numeric'|'string'|'object'|'resource' $expectedType
+     */
     public function __construct(
         string $key,
         string $expectedType,

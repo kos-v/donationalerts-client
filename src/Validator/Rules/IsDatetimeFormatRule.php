@@ -9,6 +9,7 @@ use function is_string;
 
 final class IsDatetimeFormatRule extends AbstractRule
 {
+    /** @psalm-readonly */
     private string $format;
 
     public function __construct(

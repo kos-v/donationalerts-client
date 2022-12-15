@@ -11,7 +11,10 @@ use Kosv\DonationalertsClient\Transport\CurlClient;
 
 final class Api
 {
+    /** @psalm-readonly */
     private Config $config;
+
+    /** @psalm-readonly */
     private TransportClient $transport;
 
     public function __construct(Config $config, ?TransportClient $transport = null)

@@ -6,8 +6,13 @@ namespace Kosv\DonationalertsClient\Validator;
 
 final class RuleCheckResult
 {
+    /** @psalm-readonly */
     private string $error;
+
+    /** @psalm-readonly */
     private string $key;
+
+    /** @psalm-readonly */
     private bool $ok;
 
     public function __construct(string $key, bool $ok, string $error = '')

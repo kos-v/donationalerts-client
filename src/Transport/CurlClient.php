@@ -17,6 +17,7 @@ final class CurlClient implements TransportClient
     private const METHOD_GET = 'GET';
     private const METHOD_POST = 'POST';
 
+    /** @psalm-readonly */
     private int $connectionTimeout;
 
     public function __construct(int $connectionTimeout = self::DEFAULT_CONNECTION_TIMEOUT)

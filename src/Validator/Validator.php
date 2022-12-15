@@ -9,7 +9,10 @@ use function sprintf;
 
 final class Validator
 {
-    /** @var array<Rule> */
+    /**
+     * @var array<Rule>
+     * @psalm-readonly
+     */
     private array $rules;
 
     /**

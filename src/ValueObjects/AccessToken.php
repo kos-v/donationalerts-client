@@ -6,9 +6,16 @@ namespace Kosv\DonationalertsClient\ValueObjects;
 
 final class AccessToken
 {
+    /** @psalm-readonly */
     private int $expirationTime;
+
+    /** @psalm-readonly */
     private string $token;
+
+    /** @psalm-readonly */
     private string $refreshToken;
+
+    /** @psalm-readonly */
     private string $type;
 
     public function __construct(string $token, int $expirationTime, string $type, string $refreshToken = '')

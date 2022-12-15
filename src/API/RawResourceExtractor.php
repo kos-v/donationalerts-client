@@ -17,7 +17,10 @@ final class RawResourceExtractor
     private const DEFAULT_CONTENT_KEY = 'data';
     private const DEFAULT_METADATA_KEY = 'meta';
 
-    /** @var array<string,mixed> */
+    /**
+     * @var array<string,mixed>
+     * @psalm-readonly
+     */
     private array $payload;
 
     /**

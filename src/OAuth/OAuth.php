@@ -29,7 +29,10 @@ final class OAuth
 {
     private const ACCESS_TOKEN_ENDPOINT = 'https://www.donationalerts.com/oauth/token';
 
+    /** @psalm-readonly */
     private Config $config;
+
+    /** @psalm-readonly */
     private TransportClient $httpClient;
 
     public function __construct(Config $config, ?TransportClient $httpClient = null)

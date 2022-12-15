@@ -10,6 +10,7 @@ use function sprintf;
 
 trait ServerExceptionTrait
 {
+    /** @psalm-readonly */
     private int $statusCode;
 
     public function __construct(string $error, int $statusCode, string $response = '')

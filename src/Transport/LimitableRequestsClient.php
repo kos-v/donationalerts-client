@@ -12,7 +12,10 @@ final class LimitableRequestsClient implements TransportClient
 {
     private const DEFAULT_REQUESTS_LIMIT_TIMEOUT = 1000;
 
+    /** @psalm-readonly */
     private TransportClient $client;
+
+    /** @psalm-readonly */
     private RequestsLimiter $requestsLimiter;
 
     public function __construct(
