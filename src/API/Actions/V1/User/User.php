@@ -21,7 +21,7 @@ final class User extends AbstractAction
     public function getProfileInfo(): ProfileInfo
     {
         return new ProfileInfo(
-            (new RawResourceExtractor($this->client->get('/v1/user/oauth')->toArray()))->extractContent()
+            (new RawResourceExtractor($this->client->get('/user/oauth')->toArray()))->extractContent()
         );
     }
 }

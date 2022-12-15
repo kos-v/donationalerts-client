@@ -6,6 +6,7 @@ namespace Kosv\DonationalertsClient\Tests\API;
 
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\Config;
+use Kosv\DonationalertsClient\API\Enums\ApiVersionEnum;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\API\ServerException;
@@ -18,7 +19,7 @@ final class ClientTest extends TestCase
 {
     public function testRequestGet(): void
     {
-        $client = new Client($this->makeClientConfig(), new class ($this) implements TransportClient {
+        $client = new Client(ApiVersionEnum::V1, $this->makeClientConfig(), new class ($this) implements TransportClient {
             private $testCase;
 
             public function __construct($testCase)
@@ -41,13 +42,13 @@ final class ClientTest extends TestCase
             }
         });
 
-        $response =  $client->get('/v1/test/foo', ['bar' => 'val1', 'baz' => 100]);
+        $response =  $client->get('/test/foo', ['bar' => 'val1', 'baz' => 100]);
         $this->assertEquals(['result' => true], $response->toArray());
     }
 
     public function testRequestPost(): void
     {
-        $client = new Client($this->makeClientConfig(), new class ($this) implements TransportClient {
+        $client = new Client(ApiVersionEnum::V1, $this->makeClientConfig(), new class ($this) implements TransportClient {
             private $testCase;
 
             public function __construct($testCase)
@@ -70,7 +71,7 @@ final class ClientTest extends TestCase
             }
         });
 
-        $response =  $client->post('/v1/test/foo', ['bar' => 'val1', 'baz' => 100]);
+        $response =  $client->post('/test/foo', ['bar' => 'val1', 'baz' => 100]);
         $this->assertEquals(['result' => true], $response->toArray());
     }
 
@@ -82,7 +83,7 @@ final class ClientTest extends TestCase
         $transport = $this->createMock(TransportClient::class);
         $transport->method('get')->willReturn(new Response('{"error": "server error"}', 500));
 
-        $client = new Client($this->makeClientConfig(), $transport);
+        $client = new Client(ApiVersionEnum::V1, $this->makeClientConfig(), $transport);
         $client->get('/test/foo');
     }
 
@@ -94,7 +95,7 @@ final class ClientTest extends TestCase
         $transport = $this->createMock(TransportClient::class);
         $transport->method('get')->willReturn(new Response('<h1>Hi!</h1>', 200));
 
-        $client = new Client($this->makeClientConfig(), $transport);
+        $client = new Client(ApiVersionEnum::V1, $this->makeClientConfig(), $transport);
         $client->get('/test/foo');
     }
 

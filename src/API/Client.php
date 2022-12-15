@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\API;
 
-use Kosv\DonationalertsClient\API\Enums\HttpStatusEnum;
 use function in_array;
 use InvalidArgumentException;
+use Kosv\DonationalertsClient\API\Enums\ApiVersionEnum;
+use Kosv\DonationalertsClient\API\Enums\HttpStatusEnum;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\API\ServerException;
@@ -16,6 +17,12 @@ final class Client
     private const API_URL = 'https://www.donationalerts.com/api';
     private const METHOD_GET = 'GET';
     private const METHOD_POST = 'POST';
+
+    /**
+     * @var ApiVersionEnum::*
+     * @psalm-readonly
+     */
+    private string $apiVersion;
 
     private Config $config;
 
@@ -27,8 +34,12 @@ final class Client
 
     private TransportClient $transport;
 
-    public function __construct(Config $config, TransportClient $transport)
+    /**
+     * @param ApiVersionEnum::* $apiVersion
+     */
+    public function __construct(string $apiVersion, Config $config, TransportClient $transport)
     {
+        $this->apiVersion = $apiVersion;
         $this->config = $config;
         $this->transport = $transport;
     }
@@ -65,7 +76,7 @@ final class Client
 
     private function buildUrl(string $endpoint): string
     {
-        return self::API_URL . $endpoint;
+        return self::API_URL . "/{$this->apiVersion}" . $endpoint;
     }
 
     private function checkHttpMethod(string $method): void
