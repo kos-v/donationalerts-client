@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\API;
 
+use Kosv\DonationalertsClient\API\Enums\HttpStatusEnum;
 use function in_array;
 use InvalidArgumentException;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
@@ -18,8 +19,8 @@ final class Client
 
     private Config $config;
 
-    /** @var array<int> */
-    private array $successResponseCodes = [200, 201];
+    /** @var array<HttpStatusEnum::*> */
+    private array $successResponseCodes = [HttpStatusEnum::OK, HttpStatusEnum::CREATED];
 
     /** @var array<string> */
     private array $supportedMethods = [self::METHOD_GET, self::METHOD_POST];
