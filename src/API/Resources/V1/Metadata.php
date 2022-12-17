@@ -13,7 +13,7 @@ use Kosv\DonationalertsClient\Validator\Rules\RequiredFieldRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
 use Kosv\DonationalertsClient\Validator\Validator;
 
-final class MetadataResource extends AbstractResource
+final class Metadata extends AbstractResource
 {
     public function getCurrentPage(): int
     {

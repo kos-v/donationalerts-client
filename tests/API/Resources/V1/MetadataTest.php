@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace DonationalertsClient\Tests\API\Resources\V1;
 
-use Kosv\DonationalertsClient\API\Resources\V1\MetadataResource;
+use Kosv\DonationalertsClient\API\Resources\V1\Metadata;
 use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use PHPUnit\Framework\TestCase;
 
-final class MetadataResourceTest extends TestCase
+final class MetadataTest extends TestCase
 {
     public function testGetValues(): void
     {
-        $resource = new MetadataResource([
+        $resource = new Metadata([
             'current_page' => 1,
             'from' => 1,
             'last_page' => 1,
@@ -30,9 +30,9 @@ final class MetadataResourceTest extends TestCase
     public function testUnexpectedContentFormat(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Content of MetadataResource resource is not valid. Error: "[*]":"The value must be keyable array type"');
+        $this->expectExceptionMessage('Content of Metadata resource is not valid. Error: "[*]":"The value must be keyable array type"');
 
-        new MetadataResource([
+        new Metadata([
             [
                 'current_page' => 1,
                 'from' => 1,
@@ -48,9 +48,9 @@ final class MetadataResourceTest extends TestCase
     public function testWithoutRequiredFields(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Content of MetadataResource resource is not valid. Error: "[*]":"Required fields [current_page, per_page, total] are not set"');
+        $this->expectExceptionMessage('Content of Metadata resource is not valid. Error: "[*]":"Required fields [current_page, per_page, total] are not set"');
 
-        new MetadataResource([
+        new Metadata([
             'from' => 1,
             'last_page' => 1,
             'path' => 'https://www.donationalerts.com/api/v1/alerts/donations',
