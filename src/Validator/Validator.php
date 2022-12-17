@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Validator;
 
+use function array_key_exists;
 use OutOfBoundsException;
 use function sprintf;
 
@@ -34,7 +35,7 @@ final class Validator
             if ($rule->getKey() === KeysEnum::WHOLE_TARGET) {
                 $ruleResult = $rule->check($target);
             } else {
-                if (!isset($target[$rule->getKey()])) {
+                if (!array_key_exists($rule->getKey(), $target)) {
                     throw new OutOfBoundsException(sprintf(
                         'The target does not contain the key "%s"',
                         $rule->getKey()

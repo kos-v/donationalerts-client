@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Validator\Rules;
 
+use function array_key_exists;
 use function count;
 use InvalidArgumentException;
 use function is_array;
@@ -39,7 +40,7 @@ final class RequiredFieldRule extends AbstractRule
 
         $notFoundFields = [];
         foreach ($this->requiredFields as $requiredField) {
-            if (empty($value[$requiredField])) {
+            if (!array_key_exists($requiredField, $value)) {
                 $notFoundFields[] = $requiredField;
             }
         }
