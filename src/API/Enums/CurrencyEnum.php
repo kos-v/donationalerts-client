@@ -14,4 +14,18 @@ final class CurrencyEnum
     public const TRY = 'TRY';
     public const UAH = 'UAH';
     public const USD = 'USD';
+
+    public static function getAll(): array
+    {
+        return [
+            self::BRL,
+            self::BYN,
+            self::EUR,
+            self::KZT,
+            self::RUB,
+            self::TRY,
+            self::UAH,
+            self::USD,
+        ];
+    }
 }
