@@ -23,6 +23,14 @@ abstract class AbstractResource
     }
 
     /**
+     * @return array<mixed>
+     */
+    final protected function getContent(): array
+    {
+        return $this->content;
+    }
+
+    /**
      * @param int|string $key
      * @return mixed
      */
