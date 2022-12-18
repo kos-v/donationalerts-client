@@ -27,7 +27,7 @@ abstract class AbstractCollection extends AbstractResource implements ArrayAcces
         $this->prepare();
     }
 
-    public function count(): int
+    final public function count(): int
     {
         return count($this->resources);
     }
@@ -35,7 +35,7 @@ abstract class AbstractCollection extends AbstractResource implements ArrayAcces
     /**
      * @param int $offset
      */
-    public function offsetExists($offset): bool
+    final public function offsetExists($offset): bool
     {
         return isset($this->resources[$offset]);
     }
@@ -43,7 +43,7 @@ abstract class AbstractCollection extends AbstractResource implements ArrayAcces
     /**
      * @param int $offset
      */
-    public function offsetGet($offset): AbstractResource
+    final public function offsetGet($offset): AbstractResource
     {
         if (!$this->offsetExists($offset)) {
             throw new OutOfRangeException("Index {$offset} does not exist");
@@ -51,12 +51,12 @@ abstract class AbstractCollection extends AbstractResource implements ArrayAcces
         return $this->resources[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    final public function offsetSet($offset, $value)
     {
         throw new BadMethodCallException('The collection is read-only');
     }
 
-    public function offsetUnset($offset)
+    final public function offsetUnset($offset)
     {
         throw new BadMethodCallException('The collection is read-only');
     }
