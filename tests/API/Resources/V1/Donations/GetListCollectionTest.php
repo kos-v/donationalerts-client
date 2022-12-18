@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace DonationalertsClient\Tests\API\Resources\V1\Donations;
 
 use BadMethodCallException;
+use Kosv\DonationalertsClient\API\Resources\V1\Donations\GetListCollection;
 use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use OutOfRangeException;
-use Kosv\DonationalertsClient\API\Resources\V1\Donations\GetListCollection;
 use PHPUnit\Framework\TestCase;
 
 final class GetListCollectionTest extends TestCase
