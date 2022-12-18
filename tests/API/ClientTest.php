@@ -19,59 +19,67 @@ final class ClientTest extends TestCase
 {
     public function testRequestGet(): void
     {
-        $client = new Client(ApiVersionEnum::V1, $this->makeClientConfig(), new class ($this) implements TransportClient {
-            private $testCase;
+        $client = new Client(
+            ApiVersionEnum::V1,
+            $this->makeClientConfig(),
+            new class ($this) implements TransportClient {
+                private $testCase;
 
-            public function __construct($testCase)
-            {
-                $this->testCase = $testCase;
+                public function __construct($testCase)
+                {
+                    $this->testCase = $testCase;
+                }
+
+                public function get(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    $this->testCase->assertEquals('https://www.donationalerts.com/api/v1/test/foo', $url);
+                    $this->testCase->assertEquals(['bar' => 'val1', 'baz' => 100], $payload);
+                    $this->testCase->assertEquals(['Authorization' => 'Bearer secret'], $headers);
+
+                    return new Response('{"result": true}', 200);
+                }
+
+                public function post(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    throw new LogicException('This method should not have been called');
+                }
             }
+        );
 
-            public function get(string $url, array $payload = [], array $headers = []): TransportResponse
-            {
-                $this->testCase->assertEquals('https://www.donationalerts.com/api/v1/test/foo', $url);
-                $this->testCase->assertEquals(['bar' => 'val1', 'baz' => 100], $payload);
-                $this->testCase->assertEquals(['Authorization' => 'Bearer secret'], $headers);
-
-                return new Response('{"result": true}', 200);
-            }
-
-            public function post(string $url, array $payload = [], array $headers = []): TransportResponse
-            {
-                throw new LogicException('This method should not have been called');
-            }
-        });
-
-        $response =  $client->get('/test/foo', ['bar' => 'val1', 'baz' => 100]);
+        $response = $client->get('/test/foo', ['bar' => 'val1', 'baz' => 100]);
         $this->assertEquals(['result' => true], $response->toArray());
     }
 
     public function testRequestPost(): void
     {
-        $client = new Client(ApiVersionEnum::V1, $this->makeClientConfig(), new class ($this) implements TransportClient {
-            private $testCase;
+        $client = new Client(
+            ApiVersionEnum::V1,
+            $this->makeClientConfig(),
+            new class ($this) implements TransportClient {
+                private $testCase;
 
-            public function __construct($testCase)
-            {
-                $this->testCase = $testCase;
+                public function __construct($testCase)
+                {
+                    $this->testCase = $testCase;
+                }
+
+                public function get(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    throw new LogicException('This method should not have been called');
+                }
+
+                public function post(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    $this->testCase->assertEquals('https://www.donationalerts.com/api/v1/test/foo', $url);
+                    $this->testCase->assertEquals(['bar' => 'val1', 'baz' => 100], $payload);
+                    $this->testCase->assertEquals(['Authorization' => 'Bearer secret'], $headers);
+
+                    return new Response('{"result": true}', 200);
+                }
             }
+        );
 
-            public function get(string $url, array $payload = [], array $headers = []): TransportResponse
-            {
-                throw new LogicException('This method should not have been called');
-            }
-
-            public function post(string $url, array $payload = [], array $headers = []): TransportResponse
-            {
-                $this->testCase->assertEquals('https://www.donationalerts.com/api/v1/test/foo', $url);
-                $this->testCase->assertEquals(['bar' => 'val1', 'baz' => 100], $payload);
-                $this->testCase->assertEquals(['Authorization' => 'Bearer secret'], $headers);
-
-                return new Response('{"result": true}', 200);
-            }
-        });
-
-        $response =  $client->post('/test/foo', ['bar' => 'val1', 'baz' => 100]);
+        $response = $client->post('/test/foo', ['bar' => 'val1', 'baz' => 100]);
         $this->assertEquals(['result' => true], $response->toArray());
     }
 
