@@ -119,7 +119,7 @@ final class GetListIteratorTest extends TestCase
         );
     }
 
-    public function makeTransportStub(int $totalCount, int $perPage = 30): TransportClient
+    private function makeTransportStub(int $totalCount, int $perPage = 30): TransportClient
     {
         return new PaginableRequestTransportStub($totalCount, $perPage, static function (int $id): array {
             return [
