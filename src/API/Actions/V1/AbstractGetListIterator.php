@@ -72,6 +72,10 @@ abstract class AbstractGetListIterator extends AbstractAction implements Iterato
 
     final public function valid()
     {
+        if (!$this->isLoadedResources()) {
+            return false;
+        }
+
         return $this->onlyStartPage
             ? $this->isCurrentItemInStartPageRange()
             : $this->isCurrentItemInTotalRange();
@@ -100,18 +104,13 @@ abstract class AbstractGetListIterator extends AbstractAction implements Iterato
 
     private function isNeedLoadNextPage(): bool
     {
-        return $this->isLoadedResources()
-            && !$this->onlyStartPage
+        return !$this->onlyStartPage
             && $this->currentItemIndex >= $this->metadata->getCurrentPage() * $this->metadata->getPerPage()
             && $this->currentItemIndex < $this->metadata->getTotalCount();
     }
 
     private function isCurrentItemInStartPageRange(): bool
     {
-        if (!$this->isLoadedResources()) {
-            return false;
-        }
-
         $startItemIndex = ($this->metadata->getCurrentPage() - 1) * $this->metadata->getPerPage();
         return $this->currentItemIndex >= $startItemIndex
             && $this->currentItemIndex < $startItemIndex + count($this->items);
@@ -119,8 +118,7 @@ abstract class AbstractGetListIterator extends AbstractAction implements Iterato
 
     private function isCurrentItemInTotalRange(): bool
     {
-        return $this->isLoadedResources()
-            && $this->currentItemIndex >= 0
+        return $this->currentItemIndex >= 0
             && $this->currentItemIndex < $this->metadata->getTotalCount();
     }
 
