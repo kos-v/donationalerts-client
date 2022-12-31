@@ -7,7 +7,7 @@ namespace Kosv\DonationalertsClient\Validator\Rules;
 use DateTime;
 use function is_string;
 
-final class IsDatetimeFormatRule extends AbstractRule
+final class DatetimeFormatRule extends AbstractRule
 {
     /** @psalm-readonly */
     private string $format;

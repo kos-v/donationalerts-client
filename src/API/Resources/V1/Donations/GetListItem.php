@@ -9,8 +9,8 @@ use DateTimeZone;
 use Kosv\DonationalertsClient\API\Enums\CurrencyEnum;
 use Kosv\DonationalertsClient\API\Resources\AbstractResource;
 use Kosv\DonationalertsClient\Validator\KeysEnum;
+use Kosv\DonationalertsClient\Validator\Rules\DatetimeFormatRule;
 use Kosv\DonationalertsClient\Validator\Rules\InRule;
-use Kosv\DonationalertsClient\Validator\Rules\IsDatetimeFormatRule;
 use Kosv\DonationalertsClient\Validator\Rules\IsKeyableArrayRule;
 use Kosv\DonationalertsClient\Validator\Rules\IsTypeRule;
 use Kosv\DonationalertsClient\Validator\Rules\RequiredFieldRule;
@@ -109,8 +109,8 @@ final class GetListItem extends AbstractResource
             new IsTypeRule('created_at', 'string'),
             new IsTypeRule('shown_at', 'string', true),
             new InRule('currency', CurrencyEnum::getAll()),
-            new IsDatetimeFormatRule('created_at', 'Y-m-d H:i:s'),
-            new IsDatetimeFormatRule('shown_at', 'Y-m-d H:i:s', true),
+            new DatetimeFormatRule('created_at', 'Y-m-d H:i:s'),
+            new DatetimeFormatRule('shown_at', 'Y-m-d H:i:s', true),
         ]))->validate($content);
     }
 }
