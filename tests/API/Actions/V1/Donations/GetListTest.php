@@ -85,6 +85,27 @@ final class GetListTest extends TestCase
         $this->assertEquals(range(1, 10), $ids2);
     }
 
+    /**
+     * @dataProvider getPageCountDataProvider
+     */
+    public function testGetPageCount(int $totalCount, int $perPage, int $expectedPageCount): void
+    {
+        $getList = new GetList($this->makeApiClient($this->makeTransportStub($totalCount, $perPage)), 1);
+        $this->assertEquals($expectedPageCount, $getList->getPageCount());
+    }
+
+    public function getPageCountDataProvider(): array
+    {
+        return [
+            [0, 1, 0],
+            [1, 1, 1],
+            [7, 1, 7],
+            [7, 2, 4],
+            [7, 3, 3],
+            [7, 4, 2]
+        ];
+    }
+
     private function makeApiClient(TransportClient $transport): Client
     {
         return new Client(

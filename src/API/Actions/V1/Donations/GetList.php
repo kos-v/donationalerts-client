@@ -6,7 +6,9 @@ namespace Kosv\DonationalertsClient\API\Actions\V1\Donations;
 
 use Kosv\DonationalertsClient\API\Actions\V1\AbstractGetList;
 use Kosv\DonationalertsClient\API\Client;
+use Kosv\DonationalertsClient\API\RawResourceExtractor;
 use Kosv\DonationalertsClient\API\Resources\V1\Donations\GetListItem;
+use Kosv\DonationalertsClient\API\Resources\V1\Metadata;
 
 /**
  * @method GetListItem[] getAll()
@@ -17,5 +19,12 @@ final class GetList extends AbstractGetList
     protected function makeIterator(Client $client, int $page, bool $onlyCurrentPage): GetListIterator
     {
         return new GetListIterator($client, $page, $onlyCurrentPage);
+    }
+
+    protected function makeMetadata(Client $client, int $page): Metadata
+    {
+        return new Metadata((new RawResourceExtractor(
+            $client->get('/alerts/donations', ['page' => $page])->toArray()
+        ))->extractMetadata());
     }
 }
