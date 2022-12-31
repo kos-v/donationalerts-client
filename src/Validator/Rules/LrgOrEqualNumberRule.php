@@ -7,7 +7,7 @@ namespace Kosv\DonationalertsClient\Validator\Rules;
 use InvalidArgumentException;
 use function is_numeric;
 
-final class IsLrgOrEqualNumberRule extends AbstractRule
+final class LrgOrEqualNumberRule extends AbstractRule
 {
     /** @psalm-readonly */
     private float $min;

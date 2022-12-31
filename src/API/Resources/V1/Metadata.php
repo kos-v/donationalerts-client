@@ -7,8 +7,8 @@ namespace Kosv\DonationalertsClient\API\Resources\V1;
 use Kosv\DonationalertsClient\API\Resources\AbstractResource;
 use Kosv\DonationalertsClient\Validator\KeysEnum;
 use Kosv\DonationalertsClient\Validator\Rules\IsKeyableArrayRule;
-use Kosv\DonationalertsClient\Validator\Rules\IsLrgOrEqualNumberRule;
 use Kosv\DonationalertsClient\Validator\Rules\IsTypeRule;
+use Kosv\DonationalertsClient\Validator\Rules\LrgOrEqualNumberRule;
 use Kosv\DonationalertsClient\Validator\Rules\RequiredFieldRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
 use Kosv\DonationalertsClient\Validator\Validator;
@@ -41,9 +41,9 @@ final class Metadata extends AbstractResource
             new IsTypeRule('current_page', 'integer'),
             new IsTypeRule('per_page', 'integer'),
             new IsTypeRule('total', 'integer'),
-            new IsLrgOrEqualNumberRule('current_page', 1),
-            new IsLrgOrEqualNumberRule('per_page', 1),
-            new IsLrgOrEqualNumberRule('total', 0),
+            new LrgOrEqualNumberRule('current_page', 1),
+            new LrgOrEqualNumberRule('per_page', 1),
+            new LrgOrEqualNumberRule('total', 0),
         ]))->validate($content);
     }
 }

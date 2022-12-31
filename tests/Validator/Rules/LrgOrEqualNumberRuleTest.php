@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\Tests\Validator\Rules;
 
 use InvalidArgumentException;
-use Kosv\DonationalertsClient\Validator\Rules\IsLrgOrEqualNumberRule;
+use Kosv\DonationalertsClient\Validator\Rules\LrgOrEqualNumberRule;
 use PHPUnit\Framework\TestCase;
 
-final class IsLrgOrEqualNumberRuleTest extends TestCase
+final class LrgOrEqualNumberRuleTest extends TestCase
 {
     /**
      * @dataProvider checkDataProvider
      */
     public function testCheck(int $min, $value, string $expectedMsg): void
     {
-        $rule = new IsLrgOrEqualNumberRule('test_key', $min);
+        $rule = new LrgOrEqualNumberRule('test_key', $min);
         $this->assertEquals($expectedMsg, $rule->check($value));
     }
 
@@ -35,19 +35,19 @@ final class IsLrgOrEqualNumberRuleTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The $value argument must be a numeric type');
 
-        $rule = new IsLrgOrEqualNumberRule('test_key', 0);
+        $rule = new LrgOrEqualNumberRule('test_key', 0);
         $rule->check('');
     }
 
     public function testCheckWithoutDefaultErrMessage(): void
     {
-        $rule = new IsLrgOrEqualNumberRule('test_key', 0, false, 'Error {{min}}');
+        $rule = new LrgOrEqualNumberRule('test_key', 0, false, 'Error {{min}}');
         $this->assertEquals('Error 0', $rule->check(-1));
     }
 
     public function testCheckWhenNullableTrue(): void
     {
-        $rule = new IsLrgOrEqualNumberRule('test_key', 0, true);
+        $rule = new LrgOrEqualNumberRule('test_key', 0, true);
         $this->assertEquals('', $rule->check(null));
     }
 }
