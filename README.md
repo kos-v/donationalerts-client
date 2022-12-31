@@ -9,6 +9,8 @@
 - [API](#api)  
     - [Users](#users)
       - [User Profile Information](#user-profile-information)
+    - [Donations](#donations)
+      - [Donation List](#donation-list)
 - [Other documentation resources](#other-documentation-resources)    
 
     
@@ -108,7 +110,7 @@ $api = new Api($apiConfig);
 #### Users
 ##### User Profile Information
 Action: `GET https://www.donationalerts.com/api/v1/user/oauth`  
-Code:
+Code example:
 ```php
 /** @var Kosv\DonationalertsClient\API\Api $api */
 $profileInfo = $api->v1()->user()->getProfileInfo();
@@ -120,5 +122,39 @@ $profileInfo->getName();
 $profileInfo->getSocketConnectionToken();
 ```
 
+#### Donations
+##### Donation List
+Action: `GET https://www.donationalerts.com/api/v1/alerts/donations`  
+Code example:
+```php
+use Kosv\DonationalertsClient\API\Resources\V1\Donations\GetListItem;
+/** @var Kosv\DonationalertsClient\API\Api $api */
+
+$page = 1;
+
+// Get a list of all donations starting from page $page
+$donates = $api->v1()->donations()->getList($page)->getAll();
+
+// Get a list of donations from the $page page
+$donates = $api->v1()->donations()->getList($page)->getAllOfPage();
+
+// Lazy loading a list of donations via an iterator, starting from page \$page
+foreach ($api->v1()->donations()->getList($page) as $donate) {
+    ...
+}
+
+// Getting donation data
+/** @var GetListItem $donation */
+$donation->getId();
+$donation->getName();
+$donation->getAmount();
+$donation->getUsername()
+$donation->getCurrency();
+$donation->getMessage();
+$donation->getMessageType();
+$donation->getIsShown();
+$donation->getShownAt();
+$donation->getCreatedAt();
+```
 ## Other documentation resources
 [Official API documentation](https://www.donationalerts.com/apidoc)
