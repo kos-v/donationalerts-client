@@ -55,6 +55,11 @@ abstract class AbstractGetList extends AbstractAction implements IteratorAggrega
         return (int)ceil($this->metadata->getTotalCount() / $this->metadata->getPerPage());
     }
 
+    final public function getTotalCount(): int
+    {
+        return $this->metadata->getTotalCount();
+    }
+
     /**
      * @param positive-int $page
      */

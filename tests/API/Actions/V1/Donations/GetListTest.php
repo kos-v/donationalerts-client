@@ -106,6 +106,24 @@ final class GetListTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider getTotalCountDataProvider
+     */
+    public function testGetTotalCount(int $totalCount, int $expectedTotalCount): void
+    {
+        $getList = new GetList($this->makeApiClient($this->makeTransportStub($totalCount)), 1);
+        $this->assertEquals($expectedTotalCount, $getList->getTotalCount());
+    }
+
+    public function getTotalCountDataProvider(): array
+    {
+        return [
+            [0, 0],
+            [1, 1],
+            [7, 7]
+        ];
+    }
+
     private function makeApiClient(TransportClient $transport): Client
     {
         return new Client(
