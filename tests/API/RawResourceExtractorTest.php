@@ -59,7 +59,7 @@ final class RawResourceExtractorTest extends TestCase
     public function testExtractContentWithoutContentKey(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Payload is not valid. Error: "[*]":"Required fields [data] are not set"');
+        $this->expectExceptionMessage('Body is not valid. Error: "[*]":"Required fields [data] are not set"');
 
         $this->assertEquals(
             (new RawResourceExtractor([
@@ -107,7 +107,7 @@ final class RawResourceExtractorTest extends TestCase
     public function testExtractMetadataWithoutMetadataKey(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Payload is not valid. Error: "[*]":"Required fields [meta] are not set"');
+        $this->expectExceptionMessage('Body is not valid. Error: "[*]":"Required fields [meta] are not set"');
 
         $this->assertEquals(
             (new RawResourceExtractor([

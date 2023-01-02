@@ -21,14 +21,14 @@ final class RawResourceExtractor
      * @var array<string,mixed>
      * @psalm-readonly
      */
-    private array $payload;
+    private array $body;
 
     /**
-     * @param array<string,mixed> $payload
+     * @param array<string,mixed> $body
      */
-    public function __construct(array $payload)
+    public function __construct(array $body)
     {
-        $this->payload = $payload;
+        $this->body = $body;
     }
 
     /**
@@ -58,16 +58,16 @@ final class RawResourceExtractor
      */
     private function extract(string $key, array $rules): array
     {
-        $errors = (new Validator($rules))->validate($this->payload);
+        $errors = (new Validator($rules))->validate($this->body);
         if (!$errors->isEmpty()) {
             $firstError = $errors->getFirstError();
             throw new ValidateException(sprintf(
-                'Payload is not valid. Error: "%s":"%s"',
+                'Body is not valid. Error: "%s":"%s"',
                 $firstError->getKey(),
                 $firstError->getError()
             ));
         }
 
-        return $this->payload[$key];
+        return $this->body[$key];
     }
 }
