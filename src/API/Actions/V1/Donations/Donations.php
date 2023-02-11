@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\API\Actions\V1\Donations;
 
 use InvalidArgumentException;
-use Kosv\DonationalertsClient\API\Actions\AbstractAction;
+use Kosv\DonationalertsClient\API\AbstractAction;
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\Enums\PaginationEnum;
 

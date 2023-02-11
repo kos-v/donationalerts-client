@@ -7,7 +7,7 @@ namespace Kosv\DonationalertsClient\API\Actions\V1;
 use function count;
 use InvalidArgumentException;
 use Iterator;
-use Kosv\DonationalertsClient\API\Actions\AbstractAction;
+use Kosv\DonationalertsClient\API\AbstractAction;
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\RawResourceExtractor;
 use Kosv\DonationalertsClient\API\Resources\V1\AbstractCollection;
