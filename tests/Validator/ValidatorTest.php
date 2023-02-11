@@ -77,15 +77,6 @@ final class ValidatorTest extends TestCase
         ];
     }
 
-    public function testValidateWhenRuleKeyNotHaveInTarget(): void
-    {
-        $this->expectException(OutOfBoundsException::class);
-        $this->expectExceptionMessage('The target does not contain the key "key1"');
-
-        $validator = new Validator([$this->makeRuleMock('key1', true)]);
-        $validator->validate([]);
-    }
-
     private function makeRuleMock(string $key, bool $ok): Rule
     {
         $rule = $this->createMock(Rule::class);
