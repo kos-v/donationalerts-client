@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Resources;
+namespace Kosv\DonationalertsClient\API;
 
 use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;

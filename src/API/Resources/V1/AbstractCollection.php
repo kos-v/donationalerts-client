@@ -9,7 +9,7 @@ use ArrayAccess;
 use BadMethodCallException;
 use function count;
 use Countable;
-use Kosv\DonationalertsClient\API\Resources\AbstractResource;
+use Kosv\DonationalertsClient\API\AbstractResource;
 use Kosv\DonationalertsClient\Validator\KeysEnum;
 use Kosv\DonationalertsClient\Validator\Rules\IsListableArrayRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;

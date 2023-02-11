@@ -6,8 +6,8 @@ namespace Kosv\DonationalertsClient\API\Resources\V1\Donations;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Kosv\DonationalertsClient\API\AbstractResource;
 use Kosv\DonationalertsClient\API\Enums\CurrencyEnum;
-use Kosv\DonationalertsClient\API\Resources\AbstractResource;
 use Kosv\DonationalertsClient\Validator\KeysEnum;
 use Kosv\DonationalertsClient\Validator\Rules\DatetimeFormatRule;
 use Kosv\DonationalertsClient\Validator\Rules\InRule;
