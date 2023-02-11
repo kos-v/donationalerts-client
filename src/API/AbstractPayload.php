@@ -23,7 +23,7 @@ abstract class AbstractPayload
      * @param mixed $payload
      * @param self::FORMAT_* $format
      */
-    public function __construct($payload, string $format = self::FORMAT_GET_PARAMS)
+    public function __construct($payload, string $format)
     {
         $this->format = $format;
         $this->prepare($payload);

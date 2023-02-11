@@ -6,6 +6,7 @@ namespace Kosv\DonationalertsClient\API\Actions\V1\Donations;
 
 use Kosv\DonationalertsClient\API\Actions\V1\AbstractGetListIterator;
 use Kosv\DonationalertsClient\API\Client;
+use Kosv\DonationalertsClient\API\Payloads\V1\Donations\GetList as GetListPayload;
 use Kosv\DonationalertsClient\API\RawResourceExtractor;
 use Kosv\DonationalertsClient\API\Resources\V1\AbstractCollection;
 use Kosv\DonationalertsClient\API\Resources\V1\Donations\GetListCollection;
@@ -26,6 +27,8 @@ final class GetListIterator extends AbstractGetListIterator
 
     protected function requestItems(Client $client, int $page): Response
     {
-        return $client->get('/alerts/donations', ['page' => $page]);
+        return $client->get('/alerts/donations', new GetListPayload([
+            GetListPayload::P_PAGE => $page
+        ]));
     }
 }

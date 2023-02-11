@@ -11,6 +11,7 @@ use Kosv\DonationalertsClient\API\Enums\HttpStatusEnum;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\API\ServerException;
+use UnexpectedValueException;
 
 final class Client
 {
@@ -52,21 +53,30 @@ final class Client
         $this->transport = $transport;
     }
 
-    public function get(string $endpoint, array $payload = []): Response
+    public function get(string $endpoint, ?AbstractPayload $payload = null): Response
     {
+        if ($payload && !$payload->isFormat(AbstractPayload::FORMAT_GET_PARAMS)) {
+            throw new UnexpectedValueException('The payload must contain GET parameters');
+        }
+
         return $this->request(self::METHOD_GET, $endpoint, $payload);
     }
 
-    public function post(string $endpoint, array $payload = []): Response
+    public function post(string $endpoint, ?AbstractPayload $payload = null): Response
     {
+        if ($payload && !$payload->isFormat(AbstractPayload::FORMAT_POST_FIELDS)) {
+            throw new UnexpectedValueException('The payload must contain POST fields');
+        }
+
         return $this->request(self::METHOD_POST, $endpoint, $payload);
     }
 
-    private function request(string $method, string $endpoint, array $payload = []): Response
+    private function request(string $method, string $endpoint, ?AbstractPayload $payload): Response
     {
         $this->checkHttpMethod($method);
 
         $url = $this->buildUrl($endpoint);
+        $payload = $payload ? $payload->toFormat() : [];
         $headers = [
             'Authorization' => 'Bearer ' . $this->config->getAccessToken(),
         ];
