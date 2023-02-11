@@ -8,7 +8,6 @@ use Kosv\DonationalertsClient\Validator\KeysEnum;
 use Kosv\DonationalertsClient\Validator\Rule;
 use Kosv\DonationalertsClient\Validator\RuleCheckResult;
 use Kosv\DonationalertsClient\Validator\Validator;
-use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
 final class ValidatorTest extends TestCase
