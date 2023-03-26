@@ -16,9 +16,6 @@ use Kosv\DonationalertsClient\API\Response;
 
 abstract class AbstractGetListIterator extends AbstractAction implements Iterator
 {
-    /** @psalm-readonly */
-    private Client $client;
-
     private int $currentItemIndex = -1;
 
     private ?AbstractCollection $items = null;
@@ -43,9 +40,10 @@ abstract class AbstractGetListIterator extends AbstractAction implements Iterato
             throw new InvalidArgumentException('The value of the $startPage argument must be positive');
         }
 
-        $this->client = $client;
         $this->startPage = $startPage;
         $this->onlyStartPage = $onlyStartPage;
+
+        parent::__construct($client);
     }
 
     final public function current()
@@ -58,7 +56,7 @@ abstract class AbstractGetListIterator extends AbstractAction implements Iterato
         $this->currentItemIndex++;
 
         if ($this->isNeedLoadNextPage()) {
-            $response = $this->requestItems($this->client, $this->metadata->getCurrentPage() + 1);
+            $response = $this->requestItems($this->getApiClient(), $this->metadata->getCurrentPage() + 1);
             $resourceExtractor = new RawResourceExtractor($response->toArray());
             $this->items = $this->extractItems($resourceExtractor);
             $this->metadata = $this->extractMetadata($resourceExtractor);
@@ -87,7 +85,7 @@ abstract class AbstractGetListIterator extends AbstractAction implements Iterato
         $this->metadata = null;
         $this->currentItemIndex = -1;
 
-        $response = $this->requestItems($this->client, $this->startPage);
+        $response = $this->requestItems($this->getApiClient(), $this->startPage);
         $resourceExtractor = new RawResourceExtractor($response->toArray());
         if (count($items = $this->extractItems($resourceExtractor))) {
             $this->items = $items;
