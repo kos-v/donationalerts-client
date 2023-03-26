@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\API\Actions\V1;
 
-use Kosv\DonationalertsClient\API\Actions\V1\Donations\Donations;
+use Kosv\DonationalertsClient\API\Actions\V1\Alerts\Alerts;
 use Kosv\DonationalertsClient\API\Actions\V1\User\User;
 use Kosv\DonationalertsClient\API\Client;
 
@@ -18,9 +18,9 @@ final class V1
         $this->client = $client;
     }
 
-    public function donations(): Donations
+    public function alerts(): Alerts
     {
-        return new Donations($this->client);
+        return new Alerts($this->client);
     }
 
     public function user(): User

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Payloads\V1\Donations;
+namespace Kosv\DonationalertsClient\API\Payloads\V1\Alerts\Donations;
 
 use Kosv\DonationalertsClient\API\AbstractPayload;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;

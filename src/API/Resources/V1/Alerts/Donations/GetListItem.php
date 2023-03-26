@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Resources\V1\Donations;
+namespace Kosv\DonationalertsClient\API\Resources\V1\Alerts\Donations;
 
 use DateTimeImmutable;
 use DateTimeZone;

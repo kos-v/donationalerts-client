@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DonationalertsClient\Tests\API\Resources\V1\Donations;
+namespace DonationalertsClient\Tests\API\Resources\V1\Alerts\Donations;
 
-use Kosv\DonationalertsClient\API\Resources\V1\Donations\GetListItem;
+use Kosv\DonationalertsClient\API\Resources\V1\Alerts\Donations\GetListItem;
 use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use PHPUnit\Framework\TestCase;
 

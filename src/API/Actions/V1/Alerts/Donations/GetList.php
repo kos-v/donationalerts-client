@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Actions\V1\Donations;
+namespace Kosv\DonationalertsClient\API\Actions\V1\Alerts\Donations;
 
 use Kosv\DonationalertsClient\API\Actions\V1\AbstractGetList;
 use Kosv\DonationalertsClient\API\Client;
-use Kosv\DonationalertsClient\API\Payloads\V1\Donations\GetList as GetListPayload;
+use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\Donations\GetList as GetListPayload;
 use Kosv\DonationalertsClient\API\RawResourceExtractor;
-use Kosv\DonationalertsClient\API\Resources\V1\Donations\GetListItem;
+use Kosv\DonationalertsClient\API\Resources\V1\Alerts\Donations\GetListItem;
 use Kosv\DonationalertsClient\API\Resources\V1\Metadata;
 
 /**
