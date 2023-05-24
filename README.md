@@ -7,10 +7,10 @@
     - [Request access token by authorize code grant](#request-access-token-by-authorize-code-grant)
     - [Refresh Access Token](#refresh-access-token)
 - [API](#api)  
-    - [Users](#users)
+    - [User](#user)
       - [User Profile Information](#user-profile-information)
     - [Alerts](#alerts)
-      - [Alert List](#alerts-list)
+      - [Donation List](#donation-list)
 - [Other documentation resources](#other-documentation-resources)    
 
     
@@ -107,7 +107,7 @@ $api = new Api($apiConfig);
 ```
 
 
-#### Users
+#### User
 ##### User Profile Information
 Action: `GET https://www.donationalerts.com/api/v1/user/oauth`  
 Code example:
@@ -123,7 +123,7 @@ $profileInfo->getSocketConnectionToken();
 ```
 
 #### Alerts
-##### Alert List
+##### Donation List
 Action: `GET https://www.donationalerts.com/api/v1/alerts/donations`  
 Code example:
 ```php
@@ -132,29 +132,29 @@ use Kosv\DonationalertsClient\API\Resources\V1\Alerts\Donations\GetListItem;
 
 $page = 1;
 
-// Get a list of all donation alerts starting from page $page
-$alerts = $api->v1()->alerts()->donations()->getList($page)->getAll();
+// Get a list of all donation starting from page $page
+$donations = $api->v1()->alerts()->donations()->getList($page)->getAll();
 
-// Get a list of donation alerts from the $page page
-$alerts = $api->v1()->alerts()->donations()->getList($page)->getAllOfPage();
+// Get a list of donation from the $page page
+$donations = $api->v1()->alerts()->donations()->getList($page)->getAllOfPage();
 
-// Lazy loading a list of donation alerts via an iterator, starting from page \$page
-foreach ($api->v1()->alerts()->donations()->getList($page) as $alert) {
+// Lazy loading a list of donation via an iterator, starting from page \$page
+foreach ($api->v1()->alerts()->donations()->getList($page) as $donation) {
     ...
 }
 
-// Getting donation alert data
-/** @var GetListItem $alert */
-$alert->getId();
-$alert->getName();
-$alert->getAmount();
-$alert->getUsername()
-$alert->getCurrency();
-$alert->getMessage();
-$alert->getMessageType();
-$alert->getIsShown();
-$alert->getShownAt();
-$alert->getCreatedAt();
+// Getting donation data
+/** @var GetListItem $donation */
+$donation->getId();
+$donation->getName();
+$donation->getAmount();
+$donation->getUsername()
+$donation->getCurrency();
+$donation->getMessage();
+$donation->getMessageType();
+$donation->getIsShown();
+$donation->getShownAt();
+$donation->getCreatedAt();
 ```
 ## Other documentation resources
 [Official API documentation](https://www.donationalerts.com/apidoc)
