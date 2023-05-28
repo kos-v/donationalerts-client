@@ -11,6 +11,7 @@
       - [User Profile Information](#user-profile-information)
     - [Alerts](#alerts)
       - [Donation List](#donation-list)
+      - [Create Custom Alert](#crate-custom-alert)
 - [Other documentation resources](#other-documentation-resources)    
 
     
@@ -156,5 +157,35 @@ $donation->getIsShown();
 $donation->getShownAt();
 $donation->getCreatedAt();
 ```
+
+##### Create Custom Alert
+Action: `https://www.donationalerts.com/api/v1/custom_alert`  
+Code example:
+```php
+use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\CreateCustom as CreateCustomPayload;
+use Kosv\DonationalertsClient\API\Resources\V1\Alerts\CreateCustom as CreateCustomResource;
+
+/** @var Kosv\DonationalertsClient\API\Api $api */
+
+$createCustomResource = $api->v1()->alerts()->createCustom(new CreateCustomPayload([
+    CreateCustomPayload::F_EXTERNAL_ID => '12',
+    CreateCustomPayload::F_HEADER => 'User',
+    CreateCustomPayload::F_MESSAGE => 'Test message',
+    CreateCustomPayload::F_IS_SHOWN => 0,
+    CreateCustomPayload::F_IMAGE_URL => 'http://example.local/image.png',
+    CreateCustomPayload::F_SOUND_URL => 'http://example.local/audio.ogg',
+]));
+
+$createCustomResource->getId();
+$createCustomResource->getExternalId();
+$createCustomResource->getHeader();
+$createCustomResource->getMessage();
+$createCustomResource->getIsShown();
+$createCustomResource->getImageUrl();
+$createCustomResource->getSoundUrl();
+$createCustomResource->getShownAt();
+$createCustomResource->getCreatedAt();
+```
+
 ## Other documentation resources
 [Official API documentation](https://www.donationalerts.com/apidoc)
