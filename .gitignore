@@ -7,3 +7,4 @@ vendor
 .phpunit.result.cache
 .idea/
 php-cs-fixer/
+psalm_cache/
