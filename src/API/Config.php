@@ -13,6 +13,9 @@ final class Config
     /** @psalm-readonly */
     private AccessToken $accessToken;
 
+    /** @psalm-readonly */
+    private string $clientSecret;
+
     /**
      * @var CurrencyEnum::*
      * @psalm-readonly
@@ -37,15 +40,22 @@ final class Config
      * @param CurrencyEnum::* $outCurrency
      */
     public function __construct(
+        string $clientSecret,
         AccessToken $accessToken,
         string $lang = LangEnum::ENGLISH_USA,
         string $inCurrency = CurrencyEnum::USD,
         string $outCurrency = CurrencyEnum::USD
     ) {
+        $this->clientSecret = $clientSecret;
         $this->accessToken = $accessToken;
         $this->lang = $lang;
         $this->inCurrency = $inCurrency;
         $this->outCurrency = $outCurrency;
+    }
+
+    public function getClientSecret(): string
+    {
+        return $this->clientSecret;
     }
 
     public function getAccessToken(): AccessToken

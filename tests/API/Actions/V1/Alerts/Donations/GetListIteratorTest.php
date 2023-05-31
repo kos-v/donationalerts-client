@@ -114,7 +114,10 @@ final class GetListIteratorTest extends TestCase
     {
         return new Client(
             ApiVersionEnum::V1,
-            new Config(new AccessToken('secret', 1668719637, 'Bearer', 'secret_new')),
+            new Config(
+                'secret',
+                new AccessToken('secret', 1668719637, 'Bearer', 'secret_new')
+            ),
             $transport
         );
     }

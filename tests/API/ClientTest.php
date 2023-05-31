@@ -144,7 +144,10 @@ final class ClientTest extends TestCase
 
     private function makeClientConfig(): Config
     {
-        return new Config(new AccessToken('secret', 1668719637, 'Bearer', 'secret_new'));
+        return new Config(
+            'secret',
+            new AccessToken('secret', 1668719637, 'Bearer', 'secret_new')
+        );
     }
 
     private function makePayloadStub(array $fields, string $format): AbstractPayload
