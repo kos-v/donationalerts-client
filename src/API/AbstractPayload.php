@@ -7,6 +7,7 @@ namespace Kosv\DonationalertsClient\API;
 use InvalidArgumentException;
 use function is_array;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
+use OutOfBoundsException;
 
 abstract class AbstractPayload
 {
@@ -43,6 +44,26 @@ abstract class AbstractPayload
     final public function toFormat()
     {
         return $this->payload;
+    }
+
+    /**
+     * @throws OutOfBoundsException
+     */
+    final protected function getValueFromArrayPayload(string $key)
+    {
+        if (!isset($this->payload[$key])) {
+            throw new OutOfBoundsException("Key {$key} not found");
+        }
+        return $this->payload[$key];
+    }
+
+    /**
+     * @return $this
+     */
+    final protected function setValueToArrayPayload(string $key, $value)
+    {
+        $this->payload[$key] = $value;
+        return $this;
     }
 
     /**
