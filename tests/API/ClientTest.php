@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\Tests\API;
 
 use Kosv\DonationalertsClient\API\AbstractPayload;
+use Kosv\DonationalertsClient\API\AbstractSignablePayload;
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\Config;
 use Kosv\DonationalertsClient\API\Enums\ApiVersionEnum;
@@ -20,6 +21,8 @@ use UnexpectedValueException;
 
 final class ClientTest extends TestCase
 {
+    private const PAYLOAD_SIGNATURE_FIELD_KEY = 'signature';
+
     public function testRequestGet(): void
     {
         $client = new Client(
@@ -118,6 +121,54 @@ final class ClientTest extends TestCase
         );
     }
 
+    public function testRequestWithSignablePayload(): void
+    {
+        $client = new Client(
+            ApiVersionEnum::V1,
+            $this->makeClientConfig(),
+            new class ($this, self::PAYLOAD_SIGNATURE_FIELD_KEY) implements TransportClient {
+                private string $signatureFieldKey;
+                private $testCase;
+
+                public function __construct($testCase, string $signatureFieldKey)
+                {
+                    $this->testCase = $testCase;
+                    $this->signatureFieldKey = $signatureFieldKey;
+                }
+
+                public function get(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    $this->testCase->assertEquals(
+                        '442c7997ef902c70c9d396d4e70db012a38d5ff7ca480c5588323c17974ac602',
+                        $payload[$this->signatureFieldKey]
+                    );
+
+                    return new Response('{"result": true}', 200);
+                }
+
+                public function post(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    $this->testCase->assertEquals(
+                        '0f786a4febb2a9eea9f73156f7de17863724dc815ad96da5afcbb87705ca500e',
+                        $payload[$this->signatureFieldKey]
+                    );
+
+                    return new Response('{"result": true}', 200);
+                }
+            }
+        );
+
+        $client->get(
+            '/test/foo',
+            $this->makeSignablePayload(['foo' => 'get val'], AbstractPayload::FORMAT_GET_PARAMS)
+        );
+
+        $client->post(
+            '/test/foo',
+            $this->makeSignablePayload(['foo' => 'post val'], AbstractPayload::FORMAT_POST_FIELDS)
+        );
+    }
+
     public function testRequestWhenResponseNot200xHttpCode(): void
     {
         $this->expectException(ServerException::class);
@@ -153,6 +204,29 @@ final class ClientTest extends TestCase
     private function makePayloadStub(array $fields, string $format): AbstractPayload
     {
         return new class ($fields, $format) extends AbstractPayload {
+            protected function validatePayload($payload): ValidationErrors
+            {
+                return new ValidationErrors();
+            }
+        };
+    }
+
+    private function makeSignablePayload(array $payload, string $format): AbstractSignablePayload
+    {
+        return new class ($payload, $format, self::PAYLOAD_SIGNATURE_FIELD_KEY) extends AbstractSignablePayload {
+            private string $signatureFieldKey;
+
+            public function __construct(array $payload, string $format, string $signatureFieldKey)
+            {
+                $this->signatureFieldKey = $signatureFieldKey;
+                parent::__construct($payload, $format);
+            }
+
+            public function getSignatureFieldKey(): string
+            {
+                return $this->signatureFieldKey;
+            }
+
             protected function validatePayload($payload): ValidationErrors
             {
                 return new ValidationErrors();

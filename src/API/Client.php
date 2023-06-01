@@ -28,6 +28,9 @@ final class Client
     /** @psalm-readonly */
     private Config $config;
 
+    /** @psalm-readonly */
+    private Signer $signer;
+
     /**
      * @var array<HttpStatusEnum::*>
      * @psalm-readonly
@@ -51,6 +54,7 @@ final class Client
         $this->apiVersion = $apiVersion;
         $this->config = $config;
         $this->transport = $transport;
+        $this->signer = new Signer($config->getClientSecret());
     }
 
     public function get(string $endpoint, ?AbstractPayload $payload = null): Response
@@ -76,15 +80,22 @@ final class Client
         $this->checkHttpMethod($method);
 
         $url = $this->buildUrl($endpoint);
-        $payload = $payload ? $payload->toFormat() : [];
         $headers = [
             'Authorization' => 'Bearer ' . $this->config->getAccessToken(),
         ];
 
+        $normalizedPayload = [];
+        if ($payload !== null) {
+            if ($payload instanceof AbstractSignablePayload) {
+                $payload = $this->signer->signPayload($payload);
+            }
+            $normalizedPayload = $payload->toFormat();
+        }
+
         if ($method === self::METHOD_POST) {
-            $response = $this->transport->post($url, $payload, $headers);
+            $response = $this->transport->post($url, $normalizedPayload, $headers);
         } else {
-            $response = $this->transport->get($url, $payload, $headers);
+            $response = $this->transport->get($url, $normalizedPayload, $headers);
         }
 
         $this->checkResponse($response);
