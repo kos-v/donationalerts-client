@@ -27,8 +27,8 @@ final class Signer
     public function signPayload(AbstractSignablePayload $payload): AbstractSignablePayload
     {
         $payloadValues = array_map(
-            static fn($v) => (string)$v,
-            $this->extractPayloadValuesAsList($payload->toFormat())
+            static fn ($v) => (string)$v,
+            $this->extractPayloadValuesAsList($payload->getFields())
         );
         sort($payloadValues);
 

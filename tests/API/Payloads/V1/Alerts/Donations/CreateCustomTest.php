@@ -21,13 +21,13 @@ final class CreateCustomTest extends TestCase
             CreateCustom::F_SOUND_URL => 'http://example.local/audio.ogg',
         ];
 
-        $this->assertEquals($payloadRawData, (new CreateCustom($payloadRawData))->toFormat());
+        $this->assertEquals($payloadRawData, (new CreateCustom($payloadRawData))->getFields());
     }
 
     public function testUnexpectedContentFormat(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The param external_id is not valid. The value does not match the string type');
+        $this->expectExceptionMessage('The field external_id is not valid. The value does not match the string type');
 
         new CreateCustom([
             CreateCustom::F_EXTERNAL_ID => 12,

@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\API\Payloads\V1\Alerts;
 
 use Kosv\DonationalertsClient\API\AbstractPayload;
-use Kosv\DonationalertsClient\Validator\KeysEnum;
 use Kosv\DonationalertsClient\Validator\Rules\InRule;
-use Kosv\DonationalertsClient\Validator\Rules\IsKeyableArrayRule;
 use Kosv\DonationalertsClient\Validator\Rules\IsTypeRule;
 use Kosv\DonationalertsClient\Validator\Rules\StringLenRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
@@ -23,17 +21,16 @@ final class CreateCustom extends AbstractPayload
     public const F_SOUND_URL = 'sound_url';
 
     /**
-     * @param array<self::F_*, mixed> $payload
+     * @param array<self::F_*, mixed> $fields
      */
-    public function __construct($payload)
+    public function __construct(array $fields)
     {
-        parent::__construct($payload, self::FORMAT_POST_FIELDS);
+        parent::__construct($fields);
     }
 
-    protected function validatePayload($payload): ValidationErrors
+    protected function validateFields(array $fields): ValidationErrors
     {
         return (new Validator([
-            new IsKeyableArrayRule(KeysEnum::WHOLE_TARGET),
             new IsTypeRule(self::F_EXTERNAL_ID, 'string'),
             new IsTypeRule(self::F_HEADER, 'string'),
             new IsTypeRule(self::F_MESSAGE, 'string'),
@@ -46,6 +43,6 @@ final class CreateCustom extends AbstractPayload
             new StringLenRule(self::F_MESSAGE, 0, 300),
             new StringLenRule(self::F_IMAGE_URL, 0, 255),
             new StringLenRule(self::F_SOUND_URL, 0, 255),
-        ]))->validate($payload);
+        ]))->validate($fields);
     }
 }

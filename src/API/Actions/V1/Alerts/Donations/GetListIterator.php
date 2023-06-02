@@ -28,7 +28,7 @@ final class GetListIterator extends AbstractGetListIterator
     protected function requestItems(Client $client, int $page): Response
     {
         return $client->get('/alerts/donations', new GetListPayload([
-            GetListPayload::P_PAGE => $page
+            GetListPayload::F_PAGE => $page
         ]));
     }
 }

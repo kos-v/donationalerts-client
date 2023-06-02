@@ -25,7 +25,7 @@ final class GetList extends AbstractGetList
     protected function makeMetadata(Client $client, int $page): Metadata
     {
         $payload = new GetListPayload([
-            GetListPayload::P_PAGE => $page,
+            GetListPayload::F_PAGE => $page,
         ]);
 
         return new Metadata((new RawResourceExtractor(

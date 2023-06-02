@@ -21,7 +21,7 @@ final class SignerTest extends TestCase
         $signer = new Signer($secret);
         $this->assertEquals(
             $expectedSignature,
-            $signer->signPayload($payload)->toFormat()[self::PAYLOAD_SIGNATURE_FIELD_KEY]
+            $signer->signPayload($payload)->getFields()[self::PAYLOAD_SIGNATURE_FIELD_KEY]
         );
     }
 
@@ -60,15 +60,15 @@ final class SignerTest extends TestCase
         ];
     }
 
-    private function makeSignablePayload(array $payload): AbstractSignablePayload
+    private function makeSignablePayload(array $fields): AbstractSignablePayload
     {
-        return new class ($payload, self::PAYLOAD_SIGNATURE_FIELD_KEY) extends AbstractSignablePayload {
+        return new class ($fields, self::PAYLOAD_SIGNATURE_FIELD_KEY) extends AbstractSignablePayload {
             private string $signatureFieldKey;
 
-            public function __construct(array $payload, string $signatureFieldKey)
+            public function __construct(array $fields, string $signatureFieldKey)
             {
                 $this->signatureFieldKey = $signatureFieldKey;
-                parent::__construct($payload, AbstractSignablePayload::FORMAT_POST_FIELDS);
+                parent::__construct($fields);
             }
 
             public function getSignatureFieldKey(): string
@@ -76,7 +76,7 @@ final class SignerTest extends TestCase
                 return $this->signatureFieldKey;
             }
 
-            protected function validatePayload($payload): ValidationErrors
+            protected function validateFields(array $fields): ValidationErrors
             {
                 return new ValidationErrors();
             }

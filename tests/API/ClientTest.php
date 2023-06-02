@@ -17,7 +17,6 @@ use Kosv\DonationalertsClient\Validator\ValidationErrors;
 use Kosv\DonationalertsClient\ValueObjects\AccessToken;
 use LogicException;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 
 final class ClientTest extends TestCase
 {
@@ -54,22 +53,9 @@ final class ClientTest extends TestCase
 
         $response = $client->get(
             '/test/foo',
-            $this->makePayloadStub(['bar' => 'val1', 'baz' => 100], AbstractPayload::FORMAT_GET_PARAMS)
+            $this->makePayloadStub(['bar' => 'val1', 'baz' => 100])
         );
         $this->assertEquals(['result' => true], $response->toArray());
-    }
-
-    public function testRequestGetWithUnsupportedPayloadFormat(): void
-    {
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage('The payload must contain GET parameters');
-
-        $transport = $this->createMock(TransportClient::class);
-        $client = new Client(ApiVersionEnum::V1, $this->makeClientConfig(), $transport);
-        $client->get(
-            '/test/foo',
-            $this->makePayloadStub(['bar' => 'val1', 'baz' => 100], 'not correct')
-        );
     }
 
     public function testRequestPost(): void
@@ -103,22 +89,9 @@ final class ClientTest extends TestCase
 
         $response = $client->post(
             '/test/foo',
-            $this->makePayloadStub(['bar' => 'val1', 'baz' => 100], AbstractPayload::FORMAT_POST_FIELDS)
+            $this->makePayloadStub(['bar' => 'val1', 'baz' => 100])
         );
         $this->assertEquals(['result' => true], $response->toArray());
-    }
-
-    public function testRequestPostWithUnsupportedPayloadFormat(): void
-    {
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage('The payload must contain POST fields');
-
-        $transport = $this->createMock(TransportClient::class);
-        $client = new Client(ApiVersionEnum::V1, $this->makeClientConfig(), $transport);
-        $client->post(
-            '/test/foo',
-            $this->makePayloadStub(['bar' => 'val1', 'baz' => 100], 'not correct')
-        );
     }
 
     public function testRequestWithSignablePayload(): void
@@ -160,12 +133,12 @@ final class ClientTest extends TestCase
 
         $client->get(
             '/test/foo',
-            $this->makeSignablePayload(['foo' => 'get val'], AbstractPayload::FORMAT_GET_PARAMS)
+            $this->makeSignablePayload(['foo' => 'get val'])
         );
 
         $client->post(
             '/test/foo',
-            $this->makeSignablePayload(['foo' => 'post val'], AbstractPayload::FORMAT_POST_FIELDS)
+            $this->makeSignablePayload(['foo' => 'post val'])
         );
     }
 
@@ -201,25 +174,25 @@ final class ClientTest extends TestCase
         );
     }
 
-    private function makePayloadStub(array $fields, string $format): AbstractPayload
+    private function makePayloadStub(array $fields): AbstractPayload
     {
-        return new class ($fields, $format) extends AbstractPayload {
-            protected function validatePayload($payload): ValidationErrors
+        return new class ($fields) extends AbstractPayload {
+            protected function validateFields(array $fields): ValidationErrors
             {
                 return new ValidationErrors();
             }
         };
     }
 
-    private function makeSignablePayload(array $payload, string $format): AbstractSignablePayload
+    private function makeSignablePayload(array $fields): AbstractSignablePayload
     {
-        return new class ($payload, $format, self::PAYLOAD_SIGNATURE_FIELD_KEY) extends AbstractSignablePayload {
+        return new class ($fields, self::PAYLOAD_SIGNATURE_FIELD_KEY) extends AbstractSignablePayload {
             private string $signatureFieldKey;
 
-            public function __construct(array $payload, string $format, string $signatureFieldKey)
+            public function __construct(array $payload, string $signatureFieldKey)
             {
                 $this->signatureFieldKey = $signatureFieldKey;
-                parent::__construct($payload, $format);
+                parent::__construct($payload);
             }
 
             public function getSignatureFieldKey(): string
@@ -227,7 +200,7 @@ final class ClientTest extends TestCase
                 return $this->signatureFieldKey;
             }
 
-            protected function validatePayload($payload): ValidationErrors
+            protected function validateFields(array $fields): ValidationErrors
             {
                 return new ValidationErrors();
             }

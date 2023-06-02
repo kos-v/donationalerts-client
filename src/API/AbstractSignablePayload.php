@@ -11,7 +11,7 @@ abstract class AbstractSignablePayload extends AbstractPayload
      */
     final public function setSignature(string $signature)
     {
-        $this->setValueToArrayPayload($this->getSignatureFieldKey(), $signature);
+        $this->setExtraField($this->getSignatureFieldKey(), $signature);
         return $this;
     }
 

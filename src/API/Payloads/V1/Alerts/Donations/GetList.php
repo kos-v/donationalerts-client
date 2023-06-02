@@ -9,17 +9,17 @@ use Kosv\DonationalertsClient\Validator\ValidationErrors;
 
 final class GetList extends AbstractPayload
 {
-    public const P_PAGE = 'page';
+    public const F_PAGE = 'page';
 
     /**
-     * @param array<self::P_*, mixed> $payload
+     * @param array<self::F_*, mixed> $payload
      */
-    public function __construct($payload)
+    public function __construct(array $fields)
     {
-        parent::__construct($payload, self::FORMAT_GET_PARAMS);
+        parent::__construct($fields);
     }
 
-    protected function validatePayload($payload): ValidationErrors
+    protected function validateFields(array $fields): ValidationErrors
     {
         return new ValidationErrors();
     }

@@ -5,84 +5,46 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\API;
 
 use InvalidArgumentException;
-use function is_array;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
-use OutOfBoundsException;
 
 abstract class AbstractPayload
 {
-    public const FORMAT_GET_PARAMS = 'get_params';
-    public const FORMAT_POST_FIELDS = 'post_fields';
-
-    /** @psalm-readonly */
-    private string $format;
-
-    /** @var mixed */
-    private $payload;
+    private array $fields;
 
     /**
-     * @param mixed $payload
-     * @param self::FORMAT_* $format
+     * @param array<string, mixed> $fields
      */
-    public function __construct($payload, string $format)
+    public function __construct(array $fields)
     {
-        $this->format = $format;
-        $this->prepare($payload);
+        $this->prepare($fields);
+    }
+
+    final public function getFields(): array
+    {
+        return $this->fields;
     }
 
     /**
-     * @param self::FORMAT_* $format
-     */
-    final public function isFormat(string $format): bool
-    {
-        return $format === $this->format && is_array($this->payload);
-    }
-
-    /**
-     * @return mixed
-     */
-    final public function toFormat()
-    {
-        return $this->payload;
-    }
-
-    /**
-     * @throws OutOfBoundsException
-     */
-    final protected function getValueFromArrayPayload(string $key)
-    {
-        if (!isset($this->payload[$key])) {
-            throw new OutOfBoundsException("Key {$key} not found");
-        }
-        return $this->payload[$key];
-    }
-
-    /**
+     * @param mixed $value
      * @return $this
      */
-    final protected function setValueToArrayPayload(string $key, $value)
+    final protected function setExtraField(string $key, $value)
     {
-        $this->payload[$key] = $value;
+        $this->fields[$key] = $value;
         return $this;
     }
 
-    /**
-     * @param mixed $payload
-     */
-    abstract protected function validatePayload($payload): ValidationErrors;
+    abstract protected function validateFields(array $fields): ValidationErrors;
 
-    /**
-     * @param mixed $payload
-     */
-    private function prepare($payload): void
+    private function prepare(array $fields): void
     {
-        $errors = $this->validatePayload($payload);
+        $errors = $this->validateFields($fields);
         if (!$errors->isEmpty()) {
             $firstError = $errors->getFirstError();
             throw new InvalidArgumentException(
-                "The param {$firstError->getKey()} is not valid. {$firstError->getError()}"
+                "The field {$firstError->getKey()} is not valid. {$firstError->getError()}"
             );
         }
-        $this->payload = $payload;
+        $this->fields = $fields;
     }
 }

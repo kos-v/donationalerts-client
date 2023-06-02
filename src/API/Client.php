@@ -11,7 +11,6 @@ use Kosv\DonationalertsClient\API\Enums\HttpStatusEnum;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\API\ServerException;
-use UnexpectedValueException;
 
 final class Client
 {
@@ -59,19 +58,11 @@ final class Client
 
     public function get(string $endpoint, ?AbstractPayload $payload = null): Response
     {
-        if ($payload && !$payload->isFormat(AbstractPayload::FORMAT_GET_PARAMS)) {
-            throw new UnexpectedValueException('The payload must contain GET parameters');
-        }
-
         return $this->request(self::METHOD_GET, $endpoint, $payload);
     }
 
     public function post(string $endpoint, ?AbstractPayload $payload = null): Response
     {
-        if ($payload && !$payload->isFormat(AbstractPayload::FORMAT_POST_FIELDS)) {
-            throw new UnexpectedValueException('The payload must contain POST fields');
-        }
-
         return $this->request(self::METHOD_POST, $endpoint, $payload);
     }
 
@@ -84,18 +75,18 @@ final class Client
             'Authorization' => 'Bearer ' . $this->config->getAccessToken(),
         ];
 
-        $normalizedPayload = [];
+        $payloadFields = [];
         if ($payload !== null) {
             if ($payload instanceof AbstractSignablePayload) {
                 $payload = $this->signer->signPayload($payload);
             }
-            $normalizedPayload = $payload->toFormat();
+            $payloadFields = $payload->getFields();
         }
 
         if ($method === self::METHOD_POST) {
-            $response = $this->transport->post($url, $normalizedPayload, $headers);
+            $response = $this->transport->post($url, $payloadFields, $headers);
         } else {
-            $response = $this->transport->get($url, $normalizedPayload, $headers);
+            $response = $this->transport->get($url, $payloadFields, $headers);
         }
 
         $this->checkResponse($response);
