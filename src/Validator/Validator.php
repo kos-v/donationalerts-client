@@ -22,10 +22,7 @@ final class Validator
         $this->rules = $rules;
     }
 
-    /**
-     * @param mixed $target
-     */
-    public function validate($target): ValidationErrors
+    public function validate(array $target): ValidationErrors
     {
         $errors = new ValidationErrors();
 
