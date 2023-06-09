@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\Validator;
 
 use function array_map;
+use function count;
 use function ctype_digit;
 use function is_array;
 use function is_string;
@@ -12,8 +13,9 @@ use function mb_ereg_replace;
 use function mb_split;
 use UnexpectedValueException;
 
-class KeyParser
+class Key
 {
+    /** @psalm-readonly */
     private string $key;
 
     public function __construct(string $key)
@@ -21,12 +23,25 @@ class KeyParser
         $this->key = $key;
     }
 
-    public function parseToDirectionalList(): array
+    public function __toString(): string
     {
-        if (!$this->key) {
-            return [];
-        }
+        return $this->key;
+    }
 
+    /**
+     * @return int|string
+     */
+    public function getLastPart()
+    {
+        $parts = $this->toParts();
+        return $parts[count($parts) - 1];
+    }
+
+    /**
+     * @return list<int|string>
+     */
+    public function toParts(): array
+    {
         $parseResult = mb_split('(?<!\\\\)\\.', $this->key);
         if (!is_array($parseResult)) {
             throw new UnexpectedValueException('When parsing the data, an unexpected result was obtained');
