@@ -11,5 +11,5 @@ interface Rule
      */
     public function check($value): RuleCheckResult;
 
-    public function getKey(): string;
+    public function getKey(): Key;
 }

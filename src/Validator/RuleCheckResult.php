@@ -10,12 +10,12 @@ final class RuleCheckResult
     private string $error;
 
     /** @psalm-readonly */
-    private string $key;
+    private Key $key;
 
     /** @psalm-readonly */
     private bool $ok;
 
-    public function __construct(string $key, bool $ok, string $error = '')
+    public function __construct(Key $key, bool $ok, string $error = '')
     {
         $this->key = $key;
         $this->ok = $ok;
@@ -32,7 +32,7 @@ final class RuleCheckResult
         return $this->error;
     }
 
-    public function getKey(): string
+    public function getKey(): Key
     {
         return $this->key;
     }

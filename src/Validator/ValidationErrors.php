@@ -19,10 +19,10 @@ final class ValidationErrors
             throw new InvalidArgumentException('The result of checking a rule must contain an error');
         }
 
-        if (!isset($this->errors[$checkResult->getKey()])) {
-            $this->errors[$checkResult->getKey()] = [];
+        if (!isset($this->errors[(string)$checkResult->getKey()])) {
+            $this->errors[(string)$checkResult->getKey()] = [];
         }
-        $this->errors[$checkResult->getKey()][] = $checkResult;
+        $this->errors[(string)$checkResult->getKey()][] = $checkResult;
     }
 
     public function getFirstError(): RuleCheckResult

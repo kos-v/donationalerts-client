@@ -27,13 +27,13 @@ final class Validator
         $errors = new ValidationErrors();
 
         foreach ($this->rules as $rule) {
-            if ($rule->getKey() === KeysEnum::WHOLE_TARGET) {
+            if ((string)$rule->getKey() === KeysEnum::WHOLE_TARGET) {
                 $ruleResult = $rule->check($target);
             } else {
-                if (!array_key_exists($rule->getKey(), $target)) {
+                if (!array_key_exists((string)$rule->getKey(), $target)) {
                     continue;
                 }
-                $ruleResult = $rule->check($target[$rule->getKey()]);
+                $ruleResult = $rule->check($target[(string)$rule->getKey()]);
             }
             if (!$ruleResult->isOk()) {
                 $errors->addError($ruleResult);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Tests\Validator;
 
+use Kosv\DonationalertsClient\Validator\Key;
 use Kosv\DonationalertsClient\Validator\KeysEnum;
 use Kosv\DonationalertsClient\Validator\Rule;
 use Kosv\DonationalertsClient\Validator\RuleCheckResult;
@@ -79,8 +80,8 @@ final class ValidatorTest extends TestCase
     private function makeRuleMock(string $key, bool $ok): Rule
     {
         $rule = $this->createMock(Rule::class);
-        $rule->method('getKey')->willReturn($key);
-        $rule->method('check')->willReturn(new RuleCheckResult($key, $ok));
+        $rule->method('getKey')->willReturn(new Key($key));
+        $rule->method('check')->willReturn(new RuleCheckResult(new Key($key), $ok));
 
         return $rule;
     }

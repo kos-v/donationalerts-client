@@ -6,6 +6,7 @@ namespace Kosv\DonationalertsClient\Validator\Rules;
 
 use function implode;
 use function is_array;
+use Kosv\DonationalertsClient\Validator\Key;
 use Kosv\DonationalertsClient\Validator\Rule;
 use Kosv\DonationalertsClient\Validator\RuleCheckResult;
 use function mb_ereg_replace;
@@ -18,14 +19,14 @@ abstract class AbstractRule implements Rule
     private ?string $errorMessage;
 
     /** @psalm-readonly */
-    private string $key;
+    private Key $key;
 
     /** @psalm-readonly */
     private bool $nullable;
 
     public function __construct(string $key, bool $nullable = false, ?string $errMsg = self::ERR_MSG_DEFAULT)
     {
-        $this->key = $key;
+        $this->key = new Key($key);
         $this->nullable = $nullable;
         $this->errorMessage = $errMsg;
     }
@@ -40,7 +41,7 @@ abstract class AbstractRule implements Rule
         return new RuleCheckResult($this->key, $error === '', $error);
     }
 
-    public function getKey(): string
+    public function getKey(): Key
     {
         return $this->key;
     }
