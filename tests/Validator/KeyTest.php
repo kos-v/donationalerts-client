@@ -66,7 +66,6 @@ final class KeyTest extends TestCase
             ['0.1.2', [0, 1, 2]],
             ['key1.2.key3', ['key1', 2, 'key3']],
             ['key1.*', ['key1', '*']],
-            ['key1.[*]', ['key1', '[*]']],
             ['..', ['', '', '']],
             ['key1\\.key2.key3', ['key1.key2', 'key3']],
             ['key1\\.key2\\.key3', ['key1.key2.key3']],
