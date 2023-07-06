@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\API;
 
+use function array_key_exists;
 use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
 use ReflectionClass;
@@ -32,11 +33,12 @@ abstract class AbstractResource
 
     /**
      * @param int|string $key
+     * @param mixed $default
      * @return mixed
      */
-    final protected function getContentValue($key)
+    final protected function getContentValue($key, $default = null)
     {
-        return $this->content[$key];
+        return array_key_exists($key, $this->content) ? $this->content[$key] : $default;
     }
 
     /**
