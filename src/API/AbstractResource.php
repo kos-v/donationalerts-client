@@ -51,10 +51,21 @@ abstract class AbstractResource
 
     /**
      * @param array<mixed> $content
+     * @return array<mixed>
+     */
+    protected function prepareContentBeforeValidate(array $content): array
+    {
+        return $content;
+    }
+
+    /**
+     * @param array<mixed> $content
      * @throws ValidateException
      */
     private function prepare(array $content): void
     {
+        $content = $this->prepareContentBeforeValidate($content);
+
         $errors = $this->validateContent($content);
         if (!$errors->isEmpty()) {
             $firstError = $errors->getFirstError();
