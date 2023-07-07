@@ -63,7 +63,7 @@ final class RawResourceExtractor
             $firstError = $errors->getFirstError();
             throw new ValidateException(sprintf(
                 'Body is not valid. Error: "%s":"%s"',
-                $firstError->getKey(),
+                (string)$firstError->getKey(),
                 $firstError->getError()
             ));
         }

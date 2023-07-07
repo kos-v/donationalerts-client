@@ -41,10 +41,7 @@ abstract class AbstractResource
         return array_key_exists($key, $this->content) ? $this->content[$key] : $default;
     }
 
-    /**
-     * @param mixed $content
-     */
-    abstract protected function validateContent($content): ValidationErrors;
+    abstract protected function validateContent(array $content): ValidationErrors;
 
     private function getResourceName(): string
     {
@@ -74,7 +71,7 @@ abstract class AbstractResource
             throw new ValidateException(sprintf(
                 'Content of %s resource is not valid. Error: "%s":"%s"',
                 $this->getResourceName(),
-                $firstError->getKey(),
+                (string)$firstError->getKey(),
                 $firstError->getError()
             ));
         }

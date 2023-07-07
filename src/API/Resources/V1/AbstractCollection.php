@@ -66,7 +66,7 @@ abstract class AbstractCollection extends AbstractResource implements ArrayAcces
      */
     abstract protected function makeItemResource($content): AbstractResource;
 
-    protected function validateContent($content): ValidationErrors
+    protected function validateContent(array $content): ValidationErrors
     {
         return (new Validator([
             new IsListableArrayRule(KeysEnum::WHOLE_TARGET),

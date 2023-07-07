@@ -30,7 +30,7 @@ final class Metadata extends AbstractResource
         return $this->getContentValue('total');
     }
 
-    protected function validateContent($content): ValidationErrors
+    protected function validateContent(array $content): ValidationErrors
     {
         return (new Validator([
             new IsKeyableArrayRule(KeysEnum::WHOLE_TARGET),
