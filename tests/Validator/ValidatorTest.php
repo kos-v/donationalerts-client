@@ -74,6 +74,82 @@ final class ValidatorTest extends TestCase
                 ],
                 false
             ],
+            [
+                ['key1' => ['key2' => 2]],
+                [
+                    $this->makeRuleMock('key1.key2', true),
+                ],
+                true
+            ],
+            [
+                ['key1' => ['key2' => 2]],
+                [
+                    $this->makeRuleMock('key1.key2', false),
+                ],
+                false
+            ],
+            [
+                [
+                    'key1' => 1,
+                    'key2' => ['key3' => 3]
+                ],
+                [
+                    $this->makeRuleMock('key1', true),
+                    $this->makeRuleMock('key2.key3', false),
+                ],
+                false
+            ],
+            [
+                [
+                    'key1' => ['key2' => []]
+                ],
+                [
+                    $this->makeRuleMock('key1.*', true),
+                ],
+                true
+            ],
+            [
+                [
+                    'key1' => ['key2' => ['key3' => 3]]
+                ],
+                [
+                    $this->makeRuleMock('key1.*', true),
+                ],
+                true
+            ],
+            [
+                [
+                    'key1' => ['key2' => ['key3' => 3]],
+                    'key4' => 4,
+                ],
+                [
+                    $this->makeRuleMock('key1.*', true),
+                    $this->makeRuleMock('key4', true),
+                ],
+                true
+            ],
+            [
+                [
+                    'key1' => ['key2' => ['key3' => 3]],
+                    'key4' => 4,
+                ],
+                [
+                    $this->makeRuleMock('key1.*', false),
+                    $this->makeRuleMock('key4', true),
+                ],
+                false
+            ],
+            [
+                [
+                    'key1' => ['key2' => ['key3' => 3]],
+                    'key4' => 4,
+                ],
+                [
+                    $this->makeRuleMock('key1.*', true),
+                    $this->makeRuleMock('key4', false),
+                ],
+                false
+            ],
         ];
     }
 
