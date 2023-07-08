@@ -4,11 +4,32 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Tests\Validator;
 
+use InvalidArgumentException;
 use Kosv\DonationalertsClient\Validator\Key;
 use PHPUnit\Framework\TestCase;
 
 final class KeyTest extends TestCase
 {
+    /**
+     * @dataProvider constructWithIncorrectKeyDataProvider
+     */
+    public function testConstructWithIncorrectKey(string $key): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The value of the $key argument is not valid');
+
+        new Key($key);
+    }
+
+    public function constructWithIncorrectKeyDataProvider(): array
+    {
+        return [
+            ['*.key1.key2'],
+            ['key1.*.key3'],
+            ['*.*'],
+        ];
+    }
+
     /**
      * @dataProvider __toStringDataProvider
      */
@@ -62,6 +83,7 @@ final class KeyTest extends TestCase
         return [
             ['', ['']],
             ['key1', ['key1']],
+            ['*', ['*']],
             ['key1.key2.key3', ['key1', 'key2', 'key3']],
             ['0.1.2', [0, 1, 2]],
             ['key1.2.key3', ['key1', 2, 'key3']],

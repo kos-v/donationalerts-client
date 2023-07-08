@@ -4,28 +4,31 @@ declare(strict_types=1);
 
 namespace Kosv\DonationalertsClient\Validator;
 
-use function array_map;
+use function array_slice;
 use function count;
-use function ctype_digit;
-use function is_array;
-use function is_string;
-use function mb_ereg_replace;
-use function mb_split;
-use UnexpectedValueException;
+use function in_array;
+use InvalidArgumentException;
+use Kosv\DonationalertsClient\Collection\ArrayPath;
 
 class Key
 {
     /** @psalm-readonly */
-    private string $key;
+    private ArrayPath $arrayPath;
 
     public function __construct(string $key)
     {
-        $this->key = $key;
+        if (!static::isValidRawKey($key)) {
+            throw new InvalidArgumentException('The value of the $key argument is not valid');
+        }
+
+        $this->arrayPath = new ArrayPath($key);
     }
 
     public function __toString(): string
     {
-        return $this->key;
+        /** @var string $path */
+        $path = $this->arrayPath->getFullPath();
+        return $path;
     }
 
     /**
@@ -42,24 +45,18 @@ class Key
      */
     public function toParts(): array
     {
-        $parseResult = mb_split('(?<!\\\\)\\.', $this->key);
-        if (!is_array($parseResult)) {
-            throw new UnexpectedValueException('When parsing the data, an unexpected result was obtained');
-        }
-
-        return array_map(
-            fn (string $item) => ctype_digit($item) ? (int)$item : $this->unescapeKey($item),
-            $parseResult
-        );
+        /** @var list<int|string> $parts */
+        $parts = $this->arrayPath->toParts();
+        return $parts;
     }
 
-    private function unescapeKey(string $key): string
+    private static function isValidRawKey(string $key): bool
     {
-        $key = mb_ereg_replace('\\\\(?=\\.)', '', $key);
-        if (!is_string($key)) {
-            throw new UnexpectedValueException('When unescaping, an unexpected result was obtained');
-        }
-
-        return $key;
+        $keyParts = (new ArrayPath($key))->toParts();
+        return !in_array(
+            KeysEnum::ALL_IN_LIST,
+            array_slice($keyParts, 0, count($keyParts) - 1),
+            true
+        );
     }
 }
