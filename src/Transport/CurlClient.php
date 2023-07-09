@@ -59,15 +59,16 @@ final class CurlClient implements TransportClient
 
     private function request(string $method, string $url, array $payload = [], array $headers = []): TransportResponse
     {
-        if (!in_array($method, [self::METHOD_GET, self::METHOD_POST], true)) {
-            throw new InvalidArgumentException("Method {$method} is not supported");
-        }
-
         $curl = $this->makeCurlObject($headers);
-        if ($method === self::METHOD_POST) {
-            $curl->post($url, $payload);
-        } else {
-            $curl->get($url, $payload);
+        switch ($method) {
+            case self::METHOD_GET:
+                $curl->get($url, $payload);
+                break;
+            case self::METHOD_POST:
+                $curl->post($url, $payload);
+                break;
+            default:
+                throw new InvalidArgumentException("Method {$method} is not supported");
         }
 
         return new Response((string)$curl->getRawResponse(), $curl->getHttpStatusCode());
