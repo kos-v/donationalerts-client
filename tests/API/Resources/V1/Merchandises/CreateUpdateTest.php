@@ -9,7 +9,7 @@ use DateTimeImmutable;
 use function implode;
 use Kosv\DonationalertsClient\API\Enums\CurrencyEnum;
 use Kosv\DonationalertsClient\API\Enums\LangEnum;
-use Kosv\DonationalertsClient\API\Resources\V1\Merchandises\Create;
+use Kosv\DonationalertsClient\API\Resources\V1\Merchandises\CreateUpdate;
 use Kosv\DonationalertsClient\API\Resources\V1\Merchandises\Merchant;
 use Kosv\DonationalertsClient\API\Resources\V1\Merchandises\Title;
 use Kosv\DonationalertsClient\Collection\ImmutableArrayObject;
@@ -17,11 +17,11 @@ use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use PHPUnit\Framework\TestCase;
 use function sprintf;
 
-final class CreateTest extends TestCase
+final class CreateUpdateTest extends TestCase
 {
     public function testGetValues(): void
     {
-        $resource1 = new Create([
+        $resource1 = new CreateUpdate([
             'id' => 3,
             'merchant' => [
                 'identifier' => 'test_identifier',
@@ -67,7 +67,7 @@ final class CreateTest extends TestCase
         $this->assertInstanceOf(DateTimeImmutable::class, $resource1->getEndAt());
         $this->assertEquals('2020-12-31 23.59.59', $resource1->getEndAt()->format('Y-m-d H.i.s'));
 
-        $resource2 = new Create([
+        $resource2 = new CreateUpdate([
             'id' => 3,
             'merchant' => [
                 'identifier' => 'test_identifier',
@@ -100,7 +100,7 @@ final class CreateTest extends TestCase
         $this->expectException(ValidateException::class);
         $this->expectExceptionMessage($expectedExceptionMsg);
 
-        new Create($rawData);
+        new CreateUpdate($rawData);
     }
 
     public function constructWithIncorrectArgumentDataProvider(): iterable
@@ -129,14 +129,14 @@ final class CreateTest extends TestCase
 
         yield [
             $correctSample->set([1])->toArray(),
-            'Content of Create resource is not valid. Error: "[*]":"The value must be keyable array type"'
+            'Content of CreateUpdate resource is not valid. Error: "[*]":"The value must be keyable array type"'
         ];
 
         yield from array_map(
             static fn ($key) => [
                 $correctSample->unset($key)->toArray(),
                 sprintf(
-                    'Content of Create resource is not valid. Error: "[*]":"Required fields [%s] are not set"',
+                    'Content of CreateUpdate resource is not valid. Error: "[*]":"Required fields [%s] are not set"',
                     $key
                 )
             ],
@@ -151,7 +151,7 @@ final class CreateTest extends TestCase
             static fn (array $item) => [
                 $correctSample->set([$item['key'] => $item['setVal']])->toArray(),
                 sprintf(
-                    'Content of Create resource is not valid. Error: "%s":"The value does not match the %s type"',
+                    'Content of CreateUpdate resource is not valid. Error: "%s":"The value does not match the %s type"',
                     $item['key'],
                     $item['type']
                 )
@@ -223,22 +223,22 @@ final class CreateTest extends TestCase
         yield from [
             [
                 $correctSample->set(['is_active' => 2])->toArray(),
-                'Content of Create resource is not valid. Error: "is_active":"The value is not in the list of allowed values. Allowed values: [0, 1]"'
+                'Content of CreateUpdate resource is not valid. Error: "is_active":"The value is not in the list of allowed values. Allowed values: [0, 1]"'
             ],
             [
                 $correctSample->set(['is_percentage' => 2])->toArray(),
-                'Content of Create resource is not valid. Error: "is_percentage":"The value is not in the list of allowed values. Allowed values: [0, 1]"'
+                'Content of CreateUpdate resource is not valid. Error: "is_percentage":"The value is not in the list of allowed values. Allowed values: [0, 1]"'
             ],
             [
                 $correctSample->set(['currency' => 'not_valid'])->toArray(),
                 sprintf(
-                    'Content of Create resource is not valid. Error: "currency":"The value is not in the list of allowed values. Allowed values: [%s]"',
+                    'Content of CreateUpdate resource is not valid. Error: "currency":"The value is not in the list of allowed values. Allowed values: [%s]"',
                     implode(', ', CurrencyEnum::getAll())
                 )
             ],
             [
                 $correctSample->set(['end_at' => '23:59:59 2020-12-31'])->toArray(),
-                'Content of Create resource is not valid. Error: "end_at":"The datetime must be specified in the format Y-m-d H.i.s"',
+                'Content of CreateUpdate resource is not valid. Error: "end_at":"The datetime must be specified in the format Y-m-d H.i.s"',
             ],
         ];
     }

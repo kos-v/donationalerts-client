@@ -19,7 +19,7 @@ use Kosv\DonationalertsClient\Validator\Rules\RequiredFieldRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
 use Kosv\DonationalertsClient\Validator\Validator;
 
-final class Create extends AbstractResource
+final class CreateUpdate extends AbstractResource
 {
     public function getCurrency(): string
     {

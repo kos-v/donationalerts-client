@@ -7,14 +7,14 @@ namespace Kosv\DonationalertsClient\API\Actions\V1\Merchandises;
 use Kosv\DonationalertsClient\API\AbstractAction;
 use Kosv\DonationalertsClient\API\Payloads\V1\Merchandises\Create as CreatePayload;
 use Kosv\DonationalertsClient\API\RawResourceExtractor;
-use Kosv\DonationalertsClient\API\Resources\V1\Merchandises\Create as CreateResource;
+use Kosv\DonationalertsClient\API\Resources\V1\Merchandises\CreateUpdate as CreateUpdateResource;
 
 final class Merchandises extends AbstractAction
 {
-    public function create(CreatePayload $payload): CreateResource
+    public function create(CreatePayload $payload): CreateUpdateResource
     {
         $response = $this->getApiClient()->post('/merchandise', $payload);
-        return new CreateResource(
+        return new CreateUpdateResource(
             (new RawResourceExtractor($response->toArray()))->extractContent()
         );
     }
