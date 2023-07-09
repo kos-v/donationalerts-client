@@ -26,4 +26,30 @@ final class LangEnum
     public const TURKISH = 'tr_TR';
     public const UKRAINIAN = 'uk_UA';
     public const CHINESE = 'zh_CN';
+
+    public static function getAll(): array
+    {
+        return [
+            self::BELARUSIAN,
+            self::GERMAN,
+            self::ENGLISH_USA,
+            self::SPANISH,
+            self::SPANISH_USA,
+            self::ESTONIAN,
+            self::FRENCH,
+            self::HEBREW,
+            self::ITALIAN,
+            self::GEORGIAN,
+            self::KAZAKH,
+            self::KOREAN,
+            self::LATVIAN,
+            self::POLISH,
+            self::PORTUGUESE_BRAZIL,
+            self::RUSSIAN,
+            self::SWEDISH,
+            self::TURKISH,
+            self::UKRAINIAN,
+            self::CHINESE,
+        ];
+    }
 }
