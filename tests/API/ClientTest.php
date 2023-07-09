@@ -104,6 +104,47 @@ final class ClientTest extends TestCase
         $this->assertEquals(['result' => true], $response->toArray());
     }
 
+    public function testRequestPut(): void
+    {
+        $client = new Client(
+            ApiVersionEnum::V1,
+            $this->makeClientConfig(),
+            new class ($this) implements TransportClient {
+                private $testCase;
+
+                public function __construct($testCase)
+                {
+                    $this->testCase = $testCase;
+                }
+
+                public function get(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    throw new LogicException('This method should not have been called');
+                }
+
+                public function post(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    throw new LogicException('This method should not have been called');
+                }
+
+                public function put(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    $this->testCase->assertEquals('https://www.donationalerts.com/api/v1/test/foo', $url);
+                    $this->testCase->assertEquals(['bar' => 'val1', 'baz' => 100], $payload);
+                    $this->testCase->assertEquals(['Authorization' => 'Bearer secret'], $headers);
+
+                    return new Response('{"result": true}', 200);
+                }
+            }
+        );
+
+        $response = $client->put(
+            '/test/foo',
+            $this->makePayloadStub(['bar' => 'val1', 'baz' => 100])
+        );
+        $this->assertEquals(['result' => true], $response->toArray());
+    }
+
     public function testRequestWithSignablePayload(): void
     {
         $client = new Client(
@@ -141,7 +182,12 @@ final class ClientTest extends TestCase
 
                 public function put(string $url, array $payload = [], array $headers = []): TransportResponse
                 {
-                    throw new LogicException('This method should not have been called');
+                    $this->testCase->assertEquals(
+                        '31666d58cae7b60c1448953170ad969519408c4cb0bd5eeca27a32403c18b680',
+                        $payload[$this->signatureFieldKey]
+                    );
+
+                    return new Response('{"result": true}', 200);
                 }
             }
         );
@@ -154,6 +200,11 @@ final class ClientTest extends TestCase
         $client->post(
             '/test/foo',
             $this->makeSignablePayload(['foo' => 'post val'])
+        );
+
+        $client->put(
+            '/test/foo',
+            $this->makeSignablePayload(['foo' => 'put val'])
         );
     }
 

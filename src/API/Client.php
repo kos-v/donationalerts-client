@@ -17,6 +17,7 @@ final class Client
     private const API_URL = 'https://www.donationalerts.com/api';
     private const METHOD_GET = 'GET';
     private const METHOD_POST = 'POST';
+    private const METHOD_PUT = 'PUT';
 
     /**
      * @var ApiVersionEnum::*
@@ -60,6 +61,11 @@ final class Client
         return $this->request(self::METHOD_POST, $endpoint, $payload);
     }
 
+    public function put(string $endpoint, ?AbstractPayload $payload = null): Response
+    {
+        return $this->request(self::METHOD_PUT, $endpoint, $payload);
+    }
+
     /**
      * @param self::METHOD_* $method
      */
@@ -84,6 +90,9 @@ final class Client
                 break;
             case self::METHOD_POST:
                 $response = $this->transport->post($url, $payloadFields, $headers);
+                break;
+            case self::METHOD_PUT:
+                $response = $this->transport->put($url, $payloadFields, $headers);
                 break;
             default:
                 throw new LogicException("{$method} http-method is not supported");
