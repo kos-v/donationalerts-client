@@ -11,7 +11,7 @@
       - [User Profile Information](#user-profile-information)
     - [Alerts](#alerts)
       - [Donation List](#donation-list)
-      - [Create Custom Alert](#crate-custom-alert)
+      - [Create Custom Alert](#create-custom-alert)
     - [Merchandises](#merchandises)
       - [Create](#create)
       - [Update](#update)
@@ -116,14 +116,19 @@ $api = new Api($apiConfig);
 Action: `GET https://www.donationalerts.com/api/v1/user/oauth`  
 Code example:
 ```php
-/** @var Kosv\DonationalertsClient\API\Api $api */
-$profileInfo = $api->v1()->users()->getProfileInfo();
-$profileInfo->getAvatar();
-$profileInfo->getCode();
-$profileInfo->getEmail();
-$profileInfo->getId();
-$profileInfo->getName();
-$profileInfo->getSocketConnectionToken();
+use Kosv\DonationalertsClient\API\Resources\V1\Users\ProfileInfo as Resource;
+
+/** 
+ * @var Kosv\DonationalertsClient\API\Api $api
+ * @var Resource $resource
+ */
+$resource = $api->v1()->users()->getProfileInfo();
+$resource->getAvatar();
+$resource->getCode();
+$resource->getEmail();
+$resource->getId();
+$resource->getName();
+$resource->getSocketConnectionToken();
 ```
 
 #### Alerts
@@ -165,29 +170,32 @@ $donation->getCreatedAt();
 Action: `https://www.donationalerts.com/api/v1/custom_alert`  
 Code example:
 ```php
-use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\CreateCustom as CreateCustomPayload;
-use Kosv\DonationalertsClient\API\Resources\V1\Alerts\CreateCustom as CreateCustomResource;
+use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\CreateCustom as Payload;
+use Kosv\DonationalertsClient\API\Resources\V1\Alerts\CreateCustom as Resource;
 
-/** @var Kosv\DonationalertsClient\API\Api $api */
+/** 
+ * @var Kosv\DonationalertsClient\API\Api $api
+ * @var Resource $resource
+ */
 
-$createCustomResource = $api->v1()->alerts()->createCustom(new CreateCustomPayload([
-    CreateCustomPayload::F_EXTERNAL_ID => '12',
-    CreateCustomPayload::F_HEADER => 'User',
-    CreateCustomPayload::F_MESSAGE => 'Test message',
-    CreateCustomPayload::F_IS_SHOWN => 0,
-    CreateCustomPayload::F_IMAGE_URL => 'http://example.local/image.png',
-    CreateCustomPayload::F_SOUND_URL => 'http://example.local/audio.ogg',
+$resource = $api->v1()->alerts()->createCustom(new Payload([
+    Payload::F_EXTERNAL_ID => '12',
+    Payload::F_HEADER => 'User',
+    Payload::F_MESSAGE => 'Test message',
+    Payload::F_IS_SHOWN => 0,
+    Payload::F_IMAGE_URL => 'http://example.local/image.png',
+    Payload::F_SOUND_URL => 'http://example.local/audio.ogg',
 ]));
 
-$createCustomResource->getId();
-$createCustomResource->getExternalId();
-$createCustomResource->getHeader();
-$createCustomResource->getMessage();
-$createCustomResource->getIsShown();
-$createCustomResource->getImageUrl();
-$createCustomResource->getSoundUrl();
-$createCustomResource->getShownAt();
-$createCustomResource->getCreatedAt();
+$resource->getId();
+$resource->getExternalId();
+$resource->getHeader();
+$resource->getMessage();
+$resource->getIsShown();
+$resource->getImageUrl();
+$resource->getSoundUrl();
+$resource->getShownAt();
+$resource->getCreatedAt();
 ```
 
 #### Merchandises
