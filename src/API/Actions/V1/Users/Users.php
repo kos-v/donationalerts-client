@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Actions\V1\User;
+namespace Kosv\DonationalertsClient\API\Actions\V1\Users;
 
 use Kosv\DonationalertsClient\API\AbstractAction;
 use Kosv\DonationalertsClient\API\RawResourceExtractor;
-use Kosv\DonationalertsClient\API\Resources\V1\User\ProfileInfo;
+use Kosv\DonationalertsClient\API\Resources\V1\Users\ProfileInfo;
 
-final class User extends AbstractAction
+final class Users extends AbstractAction
 {
     public function getProfileInfo(): ProfileInfo
     {

@@ -7,7 +7,7 @@
     - [Request access token by authorize code grant](#request-access-token-by-authorize-code-grant)
     - [Refresh Access Token](#refresh-access-token)
 - [API](#api)  
-    - [User](#user)
+    - [Users](#users)
       - [User Profile Information](#user-profile-information)
     - [Alerts](#alerts)
       - [Donation List](#donation-list)
@@ -108,13 +108,13 @@ $api = new Api($apiConfig);
 ```
 
 
-#### User
+#### Users
 ##### User Profile Information
 Action: `GET https://www.donationalerts.com/api/v1/user/oauth`  
 Code example:
 ```php
 /** @var Kosv\DonationalertsClient\API\Api $api */
-$profileInfo = $api->v1()->user()->getProfileInfo();
+$profileInfo = $api->v1()->users()->getProfileInfo();
 $profileInfo->getAvatar();
 $profileInfo->getCode();
 $profileInfo->getEmail();

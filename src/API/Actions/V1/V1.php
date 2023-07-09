@@ -7,7 +7,7 @@ namespace Kosv\DonationalertsClient\API\Actions\V1;
 use Kosv\DonationalertsClient\API\AbstractAction;
 use Kosv\DonationalertsClient\API\Actions\V1\Alerts\Alerts;
 use Kosv\DonationalertsClient\API\Actions\V1\Merchandises\Merchandises;
-use Kosv\DonationalertsClient\API\Actions\V1\User\User;
+use Kosv\DonationalertsClient\API\Actions\V1\Users\Users;
 
 final class V1 extends AbstractAction
 {
@@ -21,8 +21,8 @@ final class V1 extends AbstractAction
         return new Merchandises($this->getApiClient());
     }
 
-    public function user(): User
+    public function users(): Users
     {
-        return new User($this->getApiClient());
+        return new Users($this->getApiClient());
     }
 }
