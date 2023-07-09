@@ -43,4 +43,13 @@ final class LimitableRequestsClient implements TransportClient
         $this->requestsLimiter->wait();
         return $this->client->post($url, $payload, $headers);
     }
+
+    /**
+     * @throws TransportClientError
+     */
+    public function put(string $url, array $payload = [], array $headers = []): TransportResponse
+    {
+        $this->requestsLimiter->wait();
+        return $this->client->put($url, $payload, $headers);
+    }
 }

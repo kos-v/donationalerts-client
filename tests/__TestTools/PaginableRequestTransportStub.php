@@ -46,4 +46,9 @@ final class PaginableRequestTransportStub implements TransportClient
     {
         throw new LogicException('This method should not have been called');
     }
+
+    public function put(string $url, array $payload = [], array $headers = []): TransportResponse
+    {
+        throw new LogicException('This method should not have been called');
+    }
 }

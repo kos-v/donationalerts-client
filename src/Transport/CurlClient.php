@@ -16,6 +16,7 @@ final class CurlClient implements TransportClient
     private const DEFAULT_CONNECTION_TIMEOUT = 30;
     private const METHOD_GET = 'GET';
     private const METHOD_POST = 'POST';
+    private const METHOD_PUT = 'PUT';
 
     /** @psalm-readonly */
     private int $connectionTimeout;
@@ -39,6 +40,14 @@ final class CurlClient implements TransportClient
     public function post(string $url, array $payload = [], array $headers = []): TransportResponse
     {
         return $this->request(self::METHOD_POST, $url, $payload, $headers);
+    }
+
+    /**
+     * @throws TransportClientError
+     */
+    public function put(string $url, array $payload = [], array $headers = []): TransportResponse
+    {
+        return $this->request(self::METHOD_PUT, $url, $payload, $headers);
     }
 
     private function makeCurlObject(array $headers = []): Curl
@@ -66,6 +75,9 @@ final class CurlClient implements TransportClient
                 break;
             case self::METHOD_POST:
                 $curl->post($url, $payload);
+                break;
+            case self::METHOD_PUT:
+                $curl->put($url, $payload);
                 break;
             default:
                 throw new InvalidArgumentException("Method {$method} is not supported");

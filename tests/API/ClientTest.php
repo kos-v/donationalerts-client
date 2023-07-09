@@ -48,6 +48,11 @@ final class ClientTest extends TestCase
                 {
                     throw new LogicException('This method should not have been called');
                 }
+
+                public function put(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    throw new LogicException('This method should not have been called');
+                }
             }
         );
 
@@ -83,6 +88,11 @@ final class ClientTest extends TestCase
                     $this->testCase->assertEquals(['Authorization' => 'Bearer secret'], $headers);
 
                     return new Response('{"result": true}', 200);
+                }
+
+                public function put(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    throw new LogicException('This method should not have been called');
                 }
             }
         );
@@ -127,6 +137,11 @@ final class ClientTest extends TestCase
                     );
 
                     return new Response('{"result": true}', 200);
+                }
+
+                public function put(string $url, array $payload = [], array $headers = []): TransportResponse
+                {
+                    throw new LogicException('This method should not have been called');
                 }
             }
         );
