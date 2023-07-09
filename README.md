@@ -12,6 +12,9 @@
     - [Alerts](#alerts)
       - [Donation List](#donation-list)
       - [Create Custom Alert](#crate-custom-alert)
+    - [Merchandises](#merchandises)
+      - [Create](#create)
+      - [Update](#update)
 - [Other documentation resources](#other-documentation-resources)    
 
     
@@ -187,5 +190,74 @@ $createCustomResource->getShownAt();
 $createCustomResource->getCreatedAt();
 ```
 
+#### Merchandises
+##### Create
+Action: `POST https://www.donationalerts.com/api/v1/merchandise`  
+Code example:
+```php
+use Kosv\DonationalertsClient\API\Enums\CurrencyEnum;
+use Kosv\DonationalertsClient\API\Enums\LangEnum;
+use Kosv\DonationalertsClient\API\Payloads\V1\Merchandises\Create as Payload;
+use Kosv\DonationalertsClient\API\Resources\V1\Merchandises\CreateUpdate as Resource;
+
+/** 
+ * @var Kosv\DonationalertsClient\API\Api $api
+ * @var Resource $resource
+ */
+
+$resource = $api->v1()->merchandises()->create(new Payload([
+    Payload::F_MERCHANT_IDENTIFIER => 'merchant_id',
+    Payload::F_MERCHANDISE_IDENTIFIER => 'merchandise_id',
+    Payload::F_TITLE => [
+        LangEnum::ENGLISH_USA => 'Title',
+    ],
+    Payload::F_IS_ACTIVE => 1,
+    Payload::F_IS_PERCENTAGE => 1,
+    Payload::F_CURRENCY => CurrencyEnum::USD,
+    Payload::F_PRICE_USER => 25.7,
+    Payload::F_PRICE_SERVICE => 10.3,
+    Payload::F_URL => 'http://example.local/product_id=merchandise_id',
+    Payload::F_IMG_URL => 'http://example.local/product_id=merchandise_id/img.png',
+    Payload::F_END_AT_TS => 1687357916
+]));
+
+$resource->getId();
+$resource->getMerchant()->getIdentifier();
+$resource->getMerchant()->getName();
+$resource->getIdentifier();
+$resource->getTitle()->getEnglishUsa();
+$resource->getIsActive();
+$resource->getIsPercentage();
+$resource->getCurrency();
+$resource->getPriceUser();
+$resource->getPriceService();
+$resource->getUrl();
+$resource->getImgUrl();
+$resource->getEndAt();
+```
+
+##### Update
+Action: `PUT https://www.donationalerts.com/api/v1/merchandise`  
+Code example:
+```php
+use Kosv\DonationalertsClient\API\Payloads\V1\Merchandises\Update as Payload;
+use Kosv\DonationalertsClient\API\Resources\V1\Merchandises\CreateUpdate as Resource;
+
+/** 
+ * @var Kosv\DonationalertsClient\API\Api $api
+ * @var Resource $resource
+ */
+
+$merchandiseId = 99999999;
+$resource = $api->v1()->merchandises()->update($merchandiseId, new Payload([
+    Payload::F_PRICE_USER => 30,
+    Payload::F_PRICE_SERVICE => 20.3,
+    // ...
+]));
+
+$resource->getPriceUser();
+$resource->getPriceService();
+// ...
+```
 ## Other documentation resources
 [Official API documentation](https://www.donationalerts.com/apidoc)
