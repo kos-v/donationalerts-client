@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Kosv\DonationalertsClient\API;
 
 use function in_array;
-use InvalidArgumentException;
 use Kosv\DonationalertsClient\API\Enums\ApiVersionEnum;
 use Kosv\DonationalertsClient\API\Enums\HttpStatusEnum;
 use Kosv\DonationalertsClient\Contracts\TransportClient;
 use Kosv\DonationalertsClient\Contracts\TransportResponse;
 use Kosv\DonationalertsClient\Exceptions\API\ServerException;
+use LogicException;
 
 final class Client
 {
@@ -36,12 +36,6 @@ final class Client
      */
     private array $successResponseCodes = [HttpStatusEnum::OK, HttpStatusEnum::CREATED];
 
-    /**
-     * @var array<string>
-     * @psalm-readonly
-     */
-    private array $supportedMethods = [self::METHOD_GET, self::METHOD_POST];
-
     /** @psalm-readonly */
     private TransportClient $transport;
 
@@ -66,10 +60,11 @@ final class Client
         return $this->request(self::METHOD_POST, $endpoint, $payload);
     }
 
+    /**
+     * @param self::METHOD_* $method
+     */
     private function request(string $method, string $endpoint, ?AbstractPayload $payload): Response
     {
-        $this->checkHttpMethod($method);
-
         $url = $this->buildUrl($endpoint);
         $headers = [
             'Authorization' => 'Bearer ' . $this->config->getAccessToken(),
@@ -83,10 +78,15 @@ final class Client
             $payloadFields = $payload->getFields();
         }
 
-        if ($method === self::METHOD_POST) {
-            $response = $this->transport->post($url, $payloadFields, $headers);
-        } else {
-            $response = $this->transport->get($url, $payloadFields, $headers);
+        switch ($method) {
+            case self::METHOD_GET:
+                $response = $this->transport->get($url, $payloadFields, $headers);
+                break;
+            case self::METHOD_POST:
+                $response = $this->transport->post($url, $payloadFields, $headers);
+                break;
+            default:
+                throw new LogicException("{$method} http-method is not supported");
         }
 
         $this->checkResponse($response);
@@ -97,13 +97,6 @@ final class Client
     private function buildUrl(string $endpoint): string
     {
         return self::API_URL . "/{$this->apiVersion}" . $endpoint;
-    }
-
-    private function checkHttpMethod(string $method): void
-    {
-        if (!in_array($method, $this->supportedMethods, true)) {
-            throw new InvalidArgumentException("{$method} http-method is not supported");
-        }
     }
 
     private function checkResponse(TransportResponse $response): void
