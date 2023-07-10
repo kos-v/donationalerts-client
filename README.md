@@ -10,7 +10,7 @@
     - [Users](#users)
       - [User profile information](#user-profile-information)
     - [Alerts](#alerts)
-      - [Create custom alert](#create-custom-alert)
+      - [Send custom alert](#send-custom-alert)
     - [Donations](#donations)
       - [Get list](#get-list)
     - [Merchandises](#merchandises)
@@ -133,19 +133,19 @@ $resource->getSocketConnectionToken();
 ```
 
 #### Alerts
-##### Create custom alert
+##### Send custom alert
 Action: `POST https://www.donationalerts.com/api/v1/custom_alert`  
 Code example:
 ```php
-use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\CreateCustom as Payload;
-use Kosv\DonationalertsClient\API\Resources\V1\Alerts\CreateCustom as Resource;
+use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\SendCustom as Payload;
+use Kosv\DonationalertsClient\API\Resources\V1\Alerts\SendCustom as Resource;
 
 /** 
  * @var Kosv\DonationalertsClient\API\Api $api
  * @var Resource $resource
  */
 
-$resource = $api->v1()->alerts()->createCustom(new Payload([
+$resource = $api->v1()->alerts()->sendCustom(new Payload([
     Payload::F_EXTERNAL_ID => '12',
     Payload::F_HEADER => 'User',
     Payload::F_MESSAGE => 'Test message',

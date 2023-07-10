@@ -11,7 +11,7 @@ use Kosv\DonationalertsClient\Validator\Rules\StringLenRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
 use Kosv\DonationalertsClient\Validator\Validator;
 
-final class CreateCustom extends AbstractPayload
+final class SendCustom extends AbstractPayload
 {
     public const F_EXTERNAL_ID = 'external_id';
     public const F_HEADER = 'header';

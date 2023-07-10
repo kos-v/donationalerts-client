@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace DonationalertsClient\Tests\API\Resources\V1\Alerts;
 
-use Kosv\DonationalertsClient\API\Resources\V1\Alerts\CreateCustom;
+use Kosv\DonationalertsClient\API\Resources\V1\Alerts\SendCustom;
 use Kosv\DonationalertsClient\Exceptions\ValidateException;
 use PHPUnit\Framework\TestCase;
 
-final class CreateCustomTest extends TestCase
+final class SendCustomTest extends TestCase
 {
     public function testGetValues(): void
     {
-        $resource1 = new CreateCustom([
+        $resource1 = new SendCustom([
             'id' => 24,
             'external_id' => '12',
             'header' => 'Custom header',
@@ -34,7 +34,7 @@ final class CreateCustomTest extends TestCase
         $this->assertEquals('2020-09-24 12:04:23', $resource1->getCreatedAt()->format('Y-m-d H:i:s'));
         $this->assertEquals('2020-09-25 00:05:59', $resource1->getShownAt()->format('Y-m-d H:i:s'));
 
-        $resource2 = new CreateCustom([
+        $resource2 = new SendCustom([
             'id' => 24,
             'external_id' => null,
             'header' => null,
@@ -57,25 +57,25 @@ final class CreateCustomTest extends TestCase
     public function testUnexpectedContentFormat(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Content of CreateCustom resource is not valid. Error: "[*]":"The value must be keyable array type"');
+        $this->expectExceptionMessage('Content of SendCustom resource is not valid. Error: "[*]":"The value must be keyable array type"');
 
-        new CreateCustom([[]]);
+        new SendCustom([[]]);
     }
 
     public function testWithoutRequiredFields(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Content of CreateCustom resource is not valid. Error: "[*]":"Required fields [id, external_id, header, message, image_url, sound_url, is_shown, created_at, shown_at] are not set"');
+        $this->expectExceptionMessage('Content of SendCustom resource is not valid. Error: "[*]":"Required fields [id, external_id, header, message, image_url, sound_url, is_shown, created_at, shown_at] are not set"');
 
-        new CreateCustom([]);
+        new SendCustom([]);
     }
 
     public function testWithUnexpectedFieldType(): void
     {
         $this->expectException(ValidateException::class);
-        $this->expectExceptionMessage('Content of CreateCustom resource is not valid. Error: "id":"The value does not match the integer type"');
+        $this->expectExceptionMessage('Content of SendCustom resource is not valid. Error: "id":"The value does not match the integer type"');
 
-        new CreateCustom([
+        new SendCustom([
             'id' => 'id',
             'external_id' => '12',
             'header' => 'Custom header',

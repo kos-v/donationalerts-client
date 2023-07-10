@@ -16,7 +16,7 @@ use Kosv\DonationalertsClient\Validator\Rules\RequiredFieldRule;
 use Kosv\DonationalertsClient\Validator\ValidationErrors;
 use Kosv\DonationalertsClient\Validator\Validator;
 
-final class CreateCustom extends AbstractResource
+final class SendCustom extends AbstractResource
 {
     public function getCreatedAt(): DateTimeImmutable
     {
