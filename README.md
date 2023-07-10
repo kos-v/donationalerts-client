@@ -5,18 +5,18 @@
 - [OAuth 2.0](#oauth-2.0)
     - [Authorization](#authorization)
     - [Request access token by authorize code grant](#request-access-token-by-authorize-code-grant)
-    - [Refresh Access Token](#refresh-access-token)
+    - [Refresh access token](#refresh-access-token)
 - [API](#api)  
     - [Users](#users)
-      - [User Profile Information](#user-profile-information)
+      - [User profile information](#user-profile-information)
     - [Alerts](#alerts)
-      - [Create Custom Alert](#create-custom-alert)
+      - [Create custom alert](#create-custom-alert)
     - [Donations](#donations)
-      - [Get List](#get-list)
+      - [Get list](#get-list)
     - [Merchandises](#merchandises)
       - [Create](#create)
       - [Update](#update)
-- [Other documentation resources](#other-documentation-resources)    
+- [References](#references)    
 
     
 ## OAuth 2.0
@@ -113,7 +113,7 @@ $api = new Api($apiConfig);
 
 
 #### Users
-##### User Profile Information
+##### User profile information
 Action: `GET https://www.donationalerts.com/api/v1/user/oauth`  
 Code example:
 ```php
@@ -133,7 +133,7 @@ $resource->getSocketConnectionToken();
 ```
 
 #### Alerts
-##### Create Custom Alert
+##### Create custom alert
 Action: `POST https://www.donationalerts.com/api/v1/custom_alert`  
 Code example:
 ```php
@@ -165,7 +165,7 @@ $resource->getShownAt();
 $resource->getCreatedAt();
 ```
 #### Donations
-##### Get List
+##### Get list
 Action: `GET https://www.donationalerts.com/api/v1/alerts/donations`  
 Code example:
 ```php
@@ -268,5 +268,5 @@ $resource->getPriceUser();
 $resource->getPriceService();
 // ...
 ```
-## Other documentation resources
+## References
 [Official API documentation](https://www.donationalerts.com/apidoc)
