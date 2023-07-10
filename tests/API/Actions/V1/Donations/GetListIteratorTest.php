@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\Tests\API\Actions\V1\Alerts\Donations;
+namespace Kosv\DonationalertsClient\Tests\API\Actions\V1\Donations;
 
 use InvalidArgumentException;
-use Kosv\DonationalertsClient\API\Actions\V1\Alerts\Donations\GetListIterator;
+use Kosv\DonationalertsClient\API\Actions\V1\Donations\GetListIterator;
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\Config;
 use Kosv\DonationalertsClient\API\Enums\ApiVersionEnum;

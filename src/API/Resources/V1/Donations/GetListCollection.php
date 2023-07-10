@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Resources\V1\Alerts\Donations;
+namespace Kosv\DonationalertsClient\API\Resources\V1\Donations;
 
 use Kosv\DonationalertsClient\API\AbstractResource;
 use Kosv\DonationalertsClient\API\Resources\V1\AbstractCollection;

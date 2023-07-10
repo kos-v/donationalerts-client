@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DonationalertsClient\Tests\API\Payloads\V1\Alerts\Donations;
+namespace DonationalertsClient\Tests\API\Payloads\V1\Alerts;
 
 use InvalidArgumentException;
 use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\CreateCustom;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace API\Actions\V1\Alerts\Donations;
+namespace Kosv\DonationalertsClient\Tests\API\Actions\V1\Donations;
 
-use Kosv\DonationalertsClient\API\Actions\V1\Alerts\Donations\GetList;
+use Kosv\DonationalertsClient\API\Actions\V1\Donations\GetList;
 use Kosv\DonationalertsClient\API\Client;
 use Kosv\DonationalertsClient\API\Config;
 use Kosv\DonationalertsClient\API\Enums\ApiVersionEnum;

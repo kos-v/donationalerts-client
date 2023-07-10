@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosv\DonationalertsClient\API\Actions\V1\Alerts\Donations;
+namespace Kosv\DonationalertsClient\API\Actions\V1\Donations;
 
 use InvalidArgumentException;
 use Kosv\DonationalertsClient\API\AbstractAction;
