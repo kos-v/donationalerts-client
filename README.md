@@ -10,8 +10,9 @@
     - [Users](#users)
       - [User Profile Information](#user-profile-information)
     - [Alerts](#alerts)
-      - [Donation List](#donation-list)
       - [Create Custom Alert](#create-custom-alert)
+    - [Donations](#donations)
+      - [Get List](#get-list)
     - [Merchandises](#merchandises)
       - [Create](#create)
       - [Update](#update)
@@ -132,42 +133,8 @@ $resource->getSocketConnectionToken();
 ```
 
 #### Alerts
-##### Donation List
-Action: `GET https://www.donationalerts.com/api/v1/alerts/donations`  
-Code example:
-```php
-use Kosv\DonationalertsClient\API\Resources\V1\Alerts\Donations\GetListItem;
-/** @var Kosv\DonationalertsClient\API\Api $api */
-
-$page = 1;
-
-// Get a list of all donation starting from page $page
-$donations = $api->v1()->alerts()->donations()->getList($page)->getAll();
-
-// Get a list of donation from the $page page
-$donations = $api->v1()->alerts()->donations()->getList($page)->getAllOfPage();
-
-// Lazy loading a list of donation via an iterator, starting from page \$page
-foreach ($api->v1()->alerts()->donations()->getList($page) as $donation) {
-    ...
-}
-
-// Getting donation data
-/** @var GetListItem $donation */
-$donation->getId();
-$donation->getName();
-$donation->getAmount();
-$donation->getUsername()
-$donation->getCurrency();
-$donation->getMessage();
-$donation->getMessageType();
-$donation->getIsShown();
-$donation->getShownAt();
-$donation->getCreatedAt();
-```
-
 ##### Create Custom Alert
-Action: `https://www.donationalerts.com/api/v1/custom_alert`  
+Action: `POST https://www.donationalerts.com/api/v1/custom_alert`  
 Code example:
 ```php
 use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\CreateCustom as Payload;
@@ -196,6 +163,40 @@ $resource->getImageUrl();
 $resource->getSoundUrl();
 $resource->getShownAt();
 $resource->getCreatedAt();
+```
+#### Donations
+##### Get List
+Action: `GET https://www.donationalerts.com/api/v1/alerts/donations`  
+Code example:
+```php
+use Kosv\DonationalertsClient\API\Resources\V1\Donations\GetListItem;
+/** @var Kosv\DonationalertsClient\API\Api $api */
+
+$page = 1;
+
+// Get a list of all donation starting from page $page
+$donations = $api->v1()->donations()->getList($page)->getAll();
+
+// Get a list of donation from the $page page
+$donations = $api->v1()->donations()->getList($page)->getAllOfPage();
+
+// Lazy loading a list of donation via an iterator, starting from page \$page
+foreach ($api->v1()->donations()->getList($page) as $donation) {
+    ...
+}
+
+// Getting donation data
+/** @var GetListItem $donation */
+$donation->getId();
+$donation->getName();
+$donation->getAmount();
+$donation->getUsername()
+$donation->getCurrency();
+$donation->getMessage();
+$donation->getMessageType();
+$donation->getIsShown();
+$donation->getShownAt();
+$donation->getCreatedAt();
 ```
 
 #### Merchandises
