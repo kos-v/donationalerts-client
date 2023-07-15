@@ -11,6 +11,7 @@
       - [User profile information](#user-profile-information)
     - [Alerts](#alerts)
       - [Send custom alert](#send-custom-alert)
+      - [Send merchandise sale alert](#send-merchandise-sale-alert)
     - [Donations](#donations)
       - [Get list](#get-list)
     - [Merchandises](#merchandises)
@@ -164,6 +165,45 @@ $resource->getSoundUrl();
 $resource->getShownAt();
 $resource->getCreatedAt();
 ```
+
+##### Send merchandise sale alert
+Action: `POST https://www.donationalerts.com/api/v1/merchandise_sale`  
+Code example:
+```php
+use Kosv\DonationalertsClient\API\Enums\CurrencyEnum;
+use Kosv\DonationalertsClient\API\Payloads\V1\Alerts\SendMerchandiseSale as Payload;
+use Kosv\DonationalertsClient\API\Resources\V1\Alerts\SendMerchandiseSale as Resource;
+
+/** 
+ * @var Kosv\DonationalertsClient\API\Api $api
+ * @var Resource $resource
+ */
+
+$resource = $api->v1()->alerts()->sendMerchandiseSale(new Payload([
+    Payload::F_USER_ID => 999999999,
+    Payload::F_AMOUNT => 15.7,
+    Payload::F_CURRENCY => CurrencyEnum::USD,
+    Payload::F_MERCHANT_IDENTIFIER => 'merchant_identifier',
+    Payload::F_MERCHANDISE_IDENTIFIER => 'merchandise_identifier',
+    Payload::F_EXTERNAL_ID => 'external_id',
+    Payload::F_BOUGHT_AMOUNT => 2,
+    Payload::F_USERNAME => 'User',
+    Payload::F_MESSAGE => 'Message',
+]));
+
+$resource->getId();
+$resource->getName();
+$resource->getExternalId();
+$resource->getUsername();
+$resource->getMessage();
+$resource->getAmount();
+$resource->getCurrency();
+$resource->getBoughtAmount();
+$resource->getCreatedAt();
+$resource->getIsShown();
+$resource->getShownAt();
+```
+
 #### Donations
 ##### Get list
 Action: `GET https://www.donationalerts.com/api/v1/alerts/donations`  
