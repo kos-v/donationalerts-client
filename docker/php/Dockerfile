@@ -9,7 +9,7 @@ ENV BUILD_DEPS \
 
 RUN apk add --no-cache --virtual .build-deps ${BUILD_DEPS} \
     && docker-php-ext-install pcntl opcache \
-    && pecl install xdebug \
+    && pecl install xdebug-2.9.0 \
     && docker-php-ext-enable xdebug \
     && apk del -f .build-deps
 
