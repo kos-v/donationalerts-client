@@ -26,6 +26,8 @@ final class Signer
 
     public function signPayload(AbstractSignablePayload $payload): AbstractSignablePayload
     {
+        $payload = clone $payload;
+
         $payloadValues = array_map(
             static fn ($v) => (string)$v,
             $this->extractPayloadValuesAsList($payload->getFields())
