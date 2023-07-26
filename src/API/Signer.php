@@ -16,9 +16,6 @@ final class Signer
     /** @psalm-readonly */
     private string $clientSecret;
 
-    /**
-     * @param non-empty-string $clientSecret
-     */
     public function __construct(string $clientSecret)
     {
         $this->clientSecret = $clientSecret;
